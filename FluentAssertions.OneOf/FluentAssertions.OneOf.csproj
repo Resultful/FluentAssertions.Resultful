@@ -2,6 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
+    <AssemblyName>FluentAssertions.OneOf</AssemblyName>
   </PropertyGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

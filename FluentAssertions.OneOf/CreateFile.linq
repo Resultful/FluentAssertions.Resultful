@@ -95,11 +95,11 @@ private string BuildExtensionMethod(int numberOfArgs){
     var genericArgsString = string.Join(", ", genericArgs);
     return $@"
         public static OneOfAssertions
-            <{RollOverItems(genericArgs, 3, 10)}> 
+            <{RollOverItems(genericArgs, 3, 10)}>
                 Should
                 <{RollOverItems(genericArgs, 4, 10)}>
                 (this OneOf
-                    <{RollOverItems(genericArgs, 5, 10)}> 
+                    <{RollOverItems(genericArgs, 5, 10)}>
                     item)
         {{
             return new OneOfAssertions

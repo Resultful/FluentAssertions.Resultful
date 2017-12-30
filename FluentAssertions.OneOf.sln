@@ -1,11 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2009
+VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.OneOf", "FluentAssertions.OneOf\FluentAssertions.OneOf.csproj", "{5D041FFE-8709-4E3D-953F-E13F43EECD23}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentAssertions.OneOf.Tests", "FluentAssertions.OneOf.Tests\FluentAssertions.OneOf.Tests.csproj", "{AE1C4C93-7061-4EB9-AE75-7422E21F31E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.OneOf.Tests", "FluentAssertions.OneOf.Tests\FluentAssertions.OneOf.Tests.csproj", "{AE1C4C93-7061-4EB9-AE75-7422E21F31E7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{ABD40D8E-8B32-4D13-B72F-46026F45EFCC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		build.fsx = build.fsx
+		build.sh = build.sh
+		LICENSE = LICENSE
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
+		README.md = README.md
+		version.yml = version.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

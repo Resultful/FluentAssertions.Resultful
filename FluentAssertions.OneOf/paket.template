@@ -1,1 +1,6 @@
-ccls
+type project
+id FluentAssertions.OneOf
+authors Ryan Kelly
+description
+    Extension to FluentAssertions which
+licenseUrl http://opensource.org/licenses/MIT

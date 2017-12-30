@@ -19,7 +19,7 @@ namespace FluentAssertions.OneOf
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Value should be one of {0} but found {1} instead.",
                     expectedTypesString, expectedTypePretty);
-            
+
             Execute.Assertion
                 .ForCondition(itemType == expectedType)
                 .BecauseOf(because, becauseArgs)

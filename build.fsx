@@ -42,21 +42,29 @@ let buildDir = "./build"
 
 // *** Define Targets ***
 Target.Create "Clean" (fun _ ->
-    runCommand "dotnet" "clean -c \"Release\""
+    DotNetCli.RunCommand(fun p ->
+        { p with
+            TimeOut = TimeSpan.FromSeconds 30. ;
+        })
+        "clean -c \"Release\""
     Shell.CleanDir buildDir
 )
 
 Target.Create "Build" (fun _ ->
     DotNetCli.Build (fun p ->
         { p with
-            Configuration = "Release"
+            TimeOut = TimeSpan.FromSeconds 30. ;
+            Configuration = "Release";
+            AdditionalArgs = [ "--no-restore" ]
         })
 )
 
 Target.Create "Test" (fun _ ->
     DotNetCli.Test (fun p ->
         { p with
-            Project = "FluentAssertions.OneOf.Tests"
+            TimeOut = TimeSpan.FromSeconds 30. ;
+            Project = "FluentAssertions.OneOf.Tests";
+            AdditionalArgs = [ "--no-build" ;  "--no-restore" ]
         })
 )
 

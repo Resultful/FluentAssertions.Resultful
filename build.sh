@@ -1,2 +1,2 @@
-dotnet restore
-mono packages/FAKE/tools/fake.exe build.fsx Publish
+mono .paket/paket.exe restore
+mono packages/build-deps/FAKE/tools/FAKE.exe build.fsx Publish

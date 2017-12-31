@@ -85,7 +85,7 @@ Target.Create "Test"
 // *** Define Dependencies ***
 "Clean"
     ==> "Build"
-    ==> "Test" <=> "Package"
+    ==> "Package" <=> "Test"
     ==> "Publish"
 
 // *** Start Build ***

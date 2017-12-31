@@ -6,6 +6,9 @@ source https://www.nuget.org/api/v2
 nuget FluentAssertions >= 4.19.4
 nuget OneOf >= 2.1.108
 
+//CI package cache issue
+nuget Microsoft.NETCore.App >= 2.0.4
+
 // Testing
 nuget Microsoft.NET.Test.Sdk >= 15.5.0
 nuget NUnit >= 3.9.0

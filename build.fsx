@@ -77,7 +77,7 @@ Target.Create "Package" (fun _ ->
 
 Target.Create "Publish" (fun _ ->
     let finalVersion = version.ToString();
-    sprintf "push build/FluentAssertions.OneOf.%s.symbols.nupkg --url https://api.nuget.org --endpoint /v3/index.json" finalVersion
+    sprintf "push build/FluentAssertions.OneOf.%s.symbols.nupkg" finalVersion
         |> runPaketCommand
 )
 

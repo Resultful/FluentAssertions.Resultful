@@ -24,5 +24,10 @@ group ci-packages
     framework: netcoreapp2.0
     source https://api.nuget.org/v3/index.json
     nuget Microsoft.NETCore.App >= 2.0.4
+    nuget runtime.native.System.Security.Cryptography.Apple >= 4.3.1
+    nuget runtime.native.System.Net.Http >= 4.3.0
+    nuget System.Security.Cryptography.Cng >= 4.3.0
+    nuget System.Security.Cryptography.Csp >= 4.3.0
+    nuget System.Security.Cryptography.OpenSsl >= 4.3.0
 
 

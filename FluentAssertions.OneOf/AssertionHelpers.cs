@@ -31,13 +31,13 @@ namespace FluentAssertions.OneOf
 
         internal static string PrettyPrint(Type type)
         {
-            var genericArguements = type.GetGenericArguments();
-            if (!genericArguements.Any())
+            var genericArguments = type.GetGenericArguments();
+            if (!genericArguments.Any())
             {
                 return type.Name;
             }
             var genericName = type.Name.Substring(0, type.Name.IndexOf("`", StringComparison.Ordinal));
-            return $"{genericName}<{string.Join(",", genericArguements.Select(PrettyPrint))}>";
+            return $"{genericName}<{string.Join(",", genericArguments.Select(PrettyPrint))}>";
         }
     }
 }

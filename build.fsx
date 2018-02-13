@@ -1,6 +1,5 @@
 #r "packages/build-deps/FAKE/tools/FakeLib.dll"
 #r "packages/build-deps/FSharp.Configuration/lib/net45/FSharp.Configuration.dll"
-#r "packages/build-deps/semver/lib/net452/Semver.dll"
 
 open System
 open Fake
@@ -8,22 +7,19 @@ open Fake.Core
 open Fake.IO
 open Fake.Core.TargetOperators
 open FSharp.Configuration
-open Semver;
 
 type VersionConfig = YamlConfig<"version.yml">
 let versionFile = VersionConfig()
 
 let getVersion inputStr =
-    let mutable value = null;
-    if SemVersion.TryParse(inputStr, &value, true) then
-        value
+    if SemVer.isValidSemVer inputStr then
+        SemVer.parse inputStr
     else
         failwith "Value in version.yml must adhere to the SemanticVersion 2.0 Spec"
 
 let versionToPublish  = getVersion versionFile.Version
-let doPublish = versionFile.UploadPackage
 
-let globalTimeout = TimeSpan.FromSeconds 30.;
+let globalTimeout = TimeSpan.FromMinutes 1.;
 
 let runCommand execuatable command timeout  =
     let exitCode =
@@ -34,6 +30,7 @@ let runCommand execuatable command timeout  =
         }) (timeout)
 
     if exitCode <> 0 then failwithf "Look at error for  command %s %s" execuatable command
+
 
 let runMonoCommand timeout command  =
     runCommand "mono" command timeout
@@ -46,12 +43,16 @@ let buildDir = "./build"
 
 // *** Define Targets ***
 Target.Create "Clean" (fun _ ->
-    DotNetCli.RunCommand(fun p ->
-        { p with
-            TimeOut = globalTimeout;
-        })
-        "clean -c \"Release\""
-    Shell.CleanDir buildDir
+    let projects = [
+        "./FluentAssertions.OneOf"
+        "./FluentAssertions.OneOf.Tests"
+    ]
+
+    let allFoledersToClean =
+        projects
+        |> List.collect (fun project -> [ sprintf "%s/bin" project ; sprintf "%s/obj" project ])
+
+    Shell.CleanDirs (buildDir :: allFoledersToClean)
 )
 
 Target.Create "Build" (fun _ ->
@@ -59,24 +60,29 @@ Target.Create "Build" (fun _ ->
         { p with
             TimeOut = globalTimeout;
             Configuration = "Release";
-            AdditionalArgs = [ "--no-restore" ]
         })
 )
 
 Target.Create "Test" (fun _ ->
-    DotNetCli.Test (fun p ->
+    Fake.DotNetCli.Test (fun p ->
         { p with
             TimeOut = globalTimeout;
+            Configuration = "Release";
             Project = "FluentAssertions.OneOf.Tests";
-            AdditionalArgs = [ "--no-build" ;  "--no-restore" ]
+            AdditionalArgs = [ "--no-build" ; ]
         })
 )
 
 Target.Create "Package" (fun _ ->
     Directory.ensure buildDir
     let finalVersion = versionToPublish.ToString();
-    sprintf "pack build --symbols --version %s --minimum-from-lock-file" finalVersion
-        |> runPaketCommand globalTimeout
+    Fake.DotNetCli.Pack(fun p ->
+        { p with
+            TimeOut = globalTimeout;
+            Configuration = "Release";
+            OutputPath = "..\\build";
+            AdditionalArgs = [ "--no-build"; sprintf "/p:VersionPrefix=\"%s\"" finalVersion ; ]//"--include-source" ;  "--include-symbols"  ]
+        })
 )
 
 let publishPackage version =
@@ -85,10 +91,9 @@ let publishPackage version =
         |> runPaketCommand globalTimeout
 
 Target.Create "Publish" (fun _ ->
-    if doPublish then
-        publishPackage versionToPublish
-    else
-        Trace.log "Because UploadPackage was false package upload skipped"
+    match environVarOrNone "NUUGET_KEY" with
+    | Some _ -> publishPackage versionToPublish
+    | None -> Trace.log "Package upload skipped because NUGET_KEY was not found"
 )
 
 Target.Create "Test"

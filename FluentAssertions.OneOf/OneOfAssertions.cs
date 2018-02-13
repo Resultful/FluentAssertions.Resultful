@@ -16,16 +16,16 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0));
-        
+
             var result = Subject.Match(
                 CheckItem
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -51,16 +51,16 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -86,16 +86,16 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -121,16 +121,16 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -156,17 +156,17 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -192,18 +192,18 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -229,18 +229,18 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -266,18 +266,18 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -303,11 +303,11 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -315,7 +315,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -341,11 +341,11 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -353,7 +353,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -382,12 +382,12 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -395,7 +395,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -424,12 +424,12 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -437,7 +437,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -466,12 +466,12 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -480,7 +480,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -509,12 +509,12 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -523,7 +523,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -552,12 +552,12 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -566,7 +566,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -595,13 +595,13 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -610,7 +610,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -639,13 +639,13 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -655,7 +655,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -684,13 +684,13 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16), typeof(T17));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -700,7 +700,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -729,13 +729,13 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -745,7 +745,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -774,13 +774,13 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -790,7 +790,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -822,14 +822,14 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -840,7 +840,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -872,14 +872,14 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -890,7 +890,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -922,14 +922,14 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21), typeof(T22));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -940,7 +940,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -972,14 +972,14 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -990,7 +990,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -1022,14 +1022,14 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
                     typeof(T10), typeof(T11), typeof(T12), typeof(T13), typeof(T14),
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23), typeof(T24));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -1041,7 +1041,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -1073,7 +1073,7 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
@@ -1081,7 +1081,7 @@ namespace FluentAssertions.OneOf
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23), typeof(T24),
                     typeof(T25));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -1093,7 +1093,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -1125,7 +1125,7 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
@@ -1133,7 +1133,7 @@ namespace FluentAssertions.OneOf
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23), typeof(T24),
                     typeof(T25), typeof(T26));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -1145,7 +1145,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -1177,7 +1177,7 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
@@ -1185,7 +1185,7 @@ namespace FluentAssertions.OneOf
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23), typeof(T24),
                     typeof(T25), typeof(T26), typeof(T27));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -1197,7 +1197,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -1229,7 +1229,7 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
@@ -1237,7 +1237,7 @@ namespace FluentAssertions.OneOf
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23), typeof(T24),
                     typeof(T25), typeof(T26), typeof(T27), typeof(T28));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -1250,7 +1250,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -1282,7 +1282,7 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
@@ -1290,7 +1290,7 @@ namespace FluentAssertions.OneOf
                     typeof(T15), typeof(T16), typeof(T17), typeof(T18), typeof(T19),
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23), typeof(T24),
                     typeof(T25), typeof(T26), typeof(T27), typeof(T28), typeof(T29));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -1303,7 +1303,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -1338,7 +1338,7 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
@@ -1347,7 +1347,7 @@ namespace FluentAssertions.OneOf
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23), typeof(T24),
                     typeof(T25), typeof(T26), typeof(T27), typeof(T28), typeof(T29),
                     typeof(T30));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -1360,7 +1360,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
@@ -1395,7 +1395,7 @@ namespace FluentAssertions.OneOf
         public AndConstraint<TResult> Be<TResult>(
             string because = "", params object[] becauseArgs)
         {
-            TResult CheckItem<TItem>(TItem element) 
+            TResult CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, TResult>(element, becauseArgs, because,
                     typeof(T0), typeof(T1), typeof(T2), typeof(T3), typeof(T4),
                     typeof(T5), typeof(T6), typeof(T7), typeof(T8), typeof(T9),
@@ -1404,7 +1404,7 @@ namespace FluentAssertions.OneOf
                     typeof(T20), typeof(T21), typeof(T22), typeof(T23), typeof(T24),
                     typeof(T25), typeof(T26), typeof(T27), typeof(T28), typeof(T29),
                     typeof(T30), typeof(T31));
-        
+
             var result = Subject.Match(
                 CheckItem, CheckItem, CheckItem, CheckItem,
                 CheckItem, CheckItem, CheckItem, CheckItem,
@@ -1417,7 +1417,7 @@ namespace FluentAssertions.OneOf
             );
             return new AndConstraint<TResult>(result);
         }
-        
+
         public AndConstraint<TResultConstraint> Be<TResult, TResultConstraint>(
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)

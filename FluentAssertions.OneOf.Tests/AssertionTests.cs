@@ -19,7 +19,7 @@ namespace FluentAssertions.OneOf.Tests
 
             //Assert
             itemToCheck.Should().Be<Some<int>>()
-                .And.ShouldBeEquivalentTo(new Some<int>
+                .And.Should().BeEquivalentTo(new Some<int>
                 {
                     Value = 3
                 });
@@ -36,7 +36,7 @@ namespace FluentAssertions.OneOf.Tests
 
             Action failureAction = () => itemToCheck.Should().Be<int>();
 
-            failureAction.ShouldThrow<AssertionException>().WithMessage("Value should be one of \"Some<Int32>, None\" but found \"Int32\" instead.");
+            failureAction.Should().Throw<AssertionException>().WithMessage("Value should be one of \"Some<Int32>, None\" but found \"Int32\" instead.");
         }
 
     }

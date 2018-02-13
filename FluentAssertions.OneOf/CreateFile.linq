@@ -48,15 +48,14 @@ namespace FluentAssertions.OneOf
         }}
 
         public OneOf<{RollOverItems(genericArgs, 3, 10)}> Subject {{ get; }}");
-        sb.Append($@"
+        sb.AppendLine($@"
         public AndConstraint<{resultType}> Be<{resultType}>(
             string because = """", params object[] becauseArgs)
         {{
-            {resultType} CheckItem<TItem>(TItem element) 
+            {resultType} CheckItem<TItem>(TItem element)
                 => CheckItemHelper<TItem, {resultType}>(element, becauseArgs, because,
-                    {RollOverItems(genericArgs.Select(x => $"typeof({x})"), 5, 5)});
-        ");
-        sb.Append($@"
+                    {RollOverItems(genericArgs.Select(x => $"typeof({x})"), 5, 5)});");
+        sb.AppendLine($@"
             var result = Subject.Match(
                 {RollOverItems(Enumerable.Repeat("CheckItem", i), 4, 4)}
             );
@@ -64,7 +63,6 @@ namespace FluentAssertions.OneOf
         }}");
 
         sb.Append($@"
-        
         public AndConstraint<{resultConstraintType}> Be<{resultType}, {resultConstraintType}>(
             Func<{resultType}, {resultConstraintType}> assertionFunc,
             string because = """", params object[] becauseArgs)

@@ -90,10 +90,13 @@ let publishPackage version =
     sprintf "push build/FluentAssertions.OneOf.%s.symbols.nupkg" finalVersion
         |> runPaketCommand globalTimeout
 
+let nugetKeyVariable =
+    "NUGET_KEY"
+
 Target.Create "Publish" (fun _ ->
-    match environVarOrNone "NUUGET_KEY" with
+    match environVarOrNone nugetKeyVariable with
     | Some _ -> publishPackage versionToPublish
-    | None -> Trace.log "Package upload skipped because NUGET_KEY was not found"
+    | None -> Trace.log (sprintf "Package upload skipped because %s was not found" nugetKeyVariable)
 )
 
 Target.Create "Test"

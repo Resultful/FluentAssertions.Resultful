@@ -87,7 +87,7 @@ Target.Create "Package" (fun _ ->
 
 let publishPackage version =
     let finalVersion = version.ToString();
-    sprintf "push build/FluentAssertions.OneOf.%s.symbols.nupkg" finalVersion
+    sprintf "push build/FluentAssertions.OneOf.%s.nupkg" finalVersion
         |> runPaketCommand globalTimeout
 
 let nugetKeyVariable =

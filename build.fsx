@@ -73,14 +73,6 @@ Target.Create "Test" (fun _ ->
         })
 )
 
-let displayFolderContents folder =
-    let command =
-        if isWindows then
-            runCommand "ls"
-        else
-            runCommand "dir"
-    command folder globalTimeout
-
 Target.Create "Package" (fun _ ->
     Directory.ensure buildDir
     let finalVersion = versionToPublish.ToString();
@@ -88,10 +80,9 @@ Target.Create "Package" (fun _ ->
         { p with
             TimeOut = globalTimeout;
             Configuration = "Release";
-            OutputPath = "..\\build";
+            OutputPath = "../build";
             AdditionalArgs = [ "--no-build"; sprintf "/p:VersionPrefix=\"%s\"" finalVersion ; ]//"--include-source" ;  "--include-symbols"  ]
         })
-    displayFolderContents "build"
 )
 
 let publishPackage version =

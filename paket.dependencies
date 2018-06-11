@@ -6,7 +6,8 @@ source https://www.nuget.org/api/v2
 
 //Main
 nuget FluentAssertions >= 5.0.0
-nuget OneOf >= 2.1.108
+nuget OneOf >= 2.1.125
+nuget OneOf.Extended >= 2.1.125
 
 // Testing
 nuget Microsoft.NET.Test.Sdk >= 15.5.0

@@ -1,1 +1,8 @@
-Version: 0.0.5
+
+Main:
+  Version: 0.0.5
+  Publish: true
+ROP:
+  Version: 0.0.2
+  Publish: false
+

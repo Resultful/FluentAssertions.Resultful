@@ -2,7 +2,7 @@
 
 void Main()
 {
-    DumpContents("AssertionExtensions.cs", GetAssertionExtensionsContent());
+    DumpContents("AssertionExtensions.Should.cs", GetAssertionExtensionsContent());
     DumpContents("OneOfAssertions.cs", GetAssertionContent());
 }
 
@@ -12,17 +12,19 @@ public void DumpContents(string path, string content){
     File.WriteAllText(outpath.Dump(), finalContent.Dump());
 }
 
-public string RollOverItems(IEnumerable<string> items, int numberOfTabs, int numberOfItemsPerLine){
-    var checkItemNewLine = _newLine + GetTabs(numberOfTabs);
-    return string.Join(",", items.Select((x, index) => {
-			var isFirst = index == 0;
-			return (index % numberOfItemsPerLine == 0 && !isFirst ? checkItemNewLine : isFirst ? "" : " ") + x;
-		}));
-}
-
 public static readonly string _newLine = "\r\n";
 public static readonly int _spacesPerTab = 4;
 private static string GetTabs(int number) => new string('\t', number);
+
+public string RollOverItems(IEnumerable<string> items, int numberOfTabs, int numberOfItemsPerLine){
+    var checkItemNewLine = _newLine + GetTabs(numberOfTabs);
+    return string.Join(",", items.Select((x, index) => {
+            var isFirst = index == 0;
+            return (index % numberOfItemsPerLine == 0 && !isFirst ? checkItemNewLine : isFirst ? "" : " ") + x;
+        }));
+}
+
+private string _resultType = "TResult";
 
 public string GetAssertionContent()
 {
@@ -30,10 +32,11 @@ public string GetAssertionContent()
     sb.Append(@"using System;
 using OneOf;
 using static FluentAssertions.OneOf.AssertionHelpers;
+using FluentAssertions.Equivalency;
+using FluentAssertions.Execution;
 
 namespace FluentAssertions.OneOf
 {");
-    var resultType = "TResult";
     var resultConstraintType = "TResultConstraint";
     for (var i = 1; i < 33; i++)
     {
@@ -49,22 +52,21 @@ namespace FluentAssertions.OneOf
 
         public OneOf<{RollOverItems(genericArgs, 3, 10)}> Subject {{ get; }}");
         sb.AppendLine($@"
-        public AndConstraint<{resultType}> Be<{resultType}>(
+        public AndConstraint<{_resultType}> Be<{_resultType}>(
             string because = """", params object[] becauseArgs)
         {{
-            {resultType} CheckItem<TItem>(TItem element)
-                => CheckItemHelper<TItem, {resultType}>(element, becauseArgs, because,
-                    {RollOverItems(genericArgs.Select(x => $"typeof({x})"), 5, 5)});");
-        sb.AppendLine($@"
+            {_resultType} CheckItem<TItem>(TItem element)
+                => CheckItemHelper<TItem, {_resultType}>(Execute.Assertion.BecauseOf(because, becauseArgs),
+                    element, {RollOverItems(genericArgs.Select(x => $"typeof({x})"), 5, 5)});
             var result = Subject.Match(
                 {RollOverItems(Enumerable.Repeat("CheckItem", i), 4, 4)}
             );
-            return new AndConstraint<{resultType}>(result);
+            return new AndConstraint<{_resultType}>(result);
         }}");
 
         sb.Append($@"
-        public AndConstraint<{resultConstraintType}> Be<{resultType}, {resultConstraintType}>(
-            Func<{resultType}, {resultConstraintType}> assertionFunc,
+        public AndConstraint<{resultConstraintType}> Be<{_resultType}, {resultConstraintType}>(
+            Func<{_resultType}, {resultConstraintType}> assertionFunc,
             string because = """", params object[] becauseArgs)
         {{");
         sb.Append(@"
@@ -74,12 +76,22 @@ namespace FluentAssertions.OneOf
             }");
 
         sb.Append($@"
-            var result = Be<{resultType}>(because, becauseArgs);
+            var result = Be<{_resultType}>(because, becauseArgs);
             return new AndConstraint<{resultConstraintType}>(assertionFunc(result.And));
         }}");
 
 
         sb.AppendLine(@"
+
+        public void BeEquivalentTo<TExpectation>
+            (TExpectation expectation, string because = """",
+            params object[] becauseArgs)
+                => BeEquivalentTo(expectation, config => config, because, becauseArgs);
+
+        public void BeEquivalentTo<TExpectation>(TExpectation expectation,
+            Func<EquivalencyAssertionOptions<TExpectation>, EquivalencyAssertionOptions<TExpectation>> config,
+            string because = """", params object[] becauseArgs)
+                => AssertionHelpers.BeEquivalentTo(Subject, expectation, config, because, becauseArgs);
     }");
     }
 
@@ -88,9 +100,13 @@ sb.AppendLine(@"
     return sb.ToString();
 }
 
+private List<string> GetGenericArgs(int numberOfArgs)
+    => Enumerable.Range(0, numberOfArgs).Select(e => $"T{e}").ToList();
+private List<string> GetItems(int numberOfArgs, string item)
+    => Enumerable.Range(0, numberOfArgs).Select(x => item).ToList();
+
 private string BuildExtensionMethod(int numberOfArgs){
-    var genericArgs = Enumerable.Range(0, numberOfArgs).Select(e => $"T{e}").ToList();
-    var genericArgsString = string.Join(", ", genericArgs);
+    var genericArgs = GetGenericArgs(numberOfArgs);
     return $@"
         public static OneOfAssertions
             <{RollOverItems(genericArgs, 3, 10)}>
@@ -114,7 +130,7 @@ using FluentAssertions;
 
 namespace FluentAssertions.OneOf
 {
-    public static class AssertionExtensions
+    public static partial class AssertionExtensions
     {");
     for (var i = 1; i < 33; i++)
     {

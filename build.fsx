@@ -1,35 +1,46 @@
-#r "packages/build-deps/FAKE/tools/FakeLib.dll"
-#r "packages/build-deps/FSharp.Configuration/lib/net45/FSharp.Configuration.dll"
+#r "paket: groupref build-deps //"
+open Fake.IO
+#load "./.fake/build.fsx/intellisense.fsx"
+#if !FAKE
+  #r "netstandard"
+#endif
 
 open System
-open Fake
 open Fake.Core
-open Fake.IO
-open Fake.Core.TargetOperators
-open FSharp.Configuration
+open Fake.DotNet
 
-type VersionConfig = YamlConfig<"version.yml">
-let versionFile = VersionConfig()
+type Build = {
+    Version: string
+    Publish: bool
+}
 
-let getVersion inputStr =
-    if SemVer.isValidSemVer inputStr then
-        SemVer.parse inputStr
-    else
-        failwith "Value in version.yml must adhere to the SemanticVersion 2.0 Spec"
+type Config = {
+    Main: Build
+    ROP: Build
+}
 
-let versionToPublish  = getVersion versionFile.Version
+let config = {
+    Main = {
+        Version = "0.0.5"
+        Publish = true
+    }
+    ROP = {
+        Version = "0.0.2"
+        Publish = true
+    }
+}
 
 let globalTimeout = TimeSpan.FromMinutes 1.;
 
 let runCommand execuatable command timeout  =
     let exitCode =
-        Process.ExecProcess (fun info ->
+        Process.execSimple (fun info ->
         { info with
             FileName = execuatable
             Arguments = command
         }) (timeout)
 
-    if exitCode <> 0 then failwithf "Look at error for  command %s %s" execuatable command
+    if exitCode <> 0 then failwithf "Look at error for command %s %s" execuatable command
 
 
 let runMonoCommand timeout command  =
@@ -40,68 +51,91 @@ let runPaketCommand timeout paketCommand =
 
 let buildDir = "./build"
 
+let assertVersion inputStr =
+    if Fake.Core.SemVer.isValid inputStr then
+        ()
+    else
+        failwith "Value in version.yml must adhere to the SemanticVersion 2.0 Spec"
 
-// *** Define Targets ***
-Target.Create "Clean" (fun _ ->
-    let projects = [
-        "./FluentAssertions.OneOf"
-        "./FluentAssertions.OneOf.Tests"
-    ]
+let inline withVersionArgs version options =
+    assertVersion version
+    options |> DotNet.Options.withCustomParams (Some (sprintf "/p:VersionPrefix=\"%s\"" version))
 
-    let allFoledersToClean =
-        projects
-        |> List.collect (fun project -> [ sprintf "%s/bin" project ; sprintf "%s/obj" project ])
-
-    Shell.CleanDirs (buildDir :: allFoledersToClean)
-)
-
-Target.Create "Build" (fun _ ->
-    DotNetCli.Build (fun p ->
-        { p with
-            TimeOut = globalTimeout;
-            Configuration = "Release";
-        })
-)
-
-Target.Create "Test" (fun _ ->
-    Fake.DotNetCli.Test (fun p ->
-        { p with
-            TimeOut = globalTimeout;
-            Configuration = "Release";
-            Project = "FluentAssertions.OneOf.Tests";
-            AdditionalArgs = [ "--no-build" ; ]
-        })
-)
-
-Target.Create "Package" (fun _ ->
-    Directory.ensure buildDir
-    let finalVersion = versionToPublish.ToString();
-    Fake.DotNetCli.Pack(fun p ->
-        { p with
-            TimeOut = globalTimeout;
-            Configuration = "Release";
-            OutputPath = "../build";
-            AdditionalArgs = [ "--no-build"; sprintf "/p:VersionPrefix=\"%s\"" finalVersion ; ]//"--include-source" ;  "--include-symbols"  ]
-        })
-)
-
-let publishPackage version =
-    let finalVersion = version.ToString();
-    sprintf "push build/FluentAssertions.OneOf.%s.nupkg" finalVersion
-        |> runPaketCommand globalTimeout
 
 let nugetKeyVariable =
     "NUGET_KEY"
 
-Target.Create "Publish" (fun _ ->
-    match environVarOrNone nugetKeyVariable with
-    | Some _ -> publishPackage versionToPublish
+// *** Define Targets ***
+Target.create "Clean" (fun _ ->
+    let projects = [
+        "./src/FluentAssertions.OneOf"
+        "./src/FluentAssertions.OneOf.ROP"
+        "./test/FluentAssertions.OneOf.Tests"
+        "./test/FluentAssertions.OneOf.ROP.Tests"
+    ]
+
+    let allFoldersToClean =
+        projects
+        |> List.collect (fun project -> [ sprintf "%s/bin" project ; sprintf "%s/obj" project ])
+
+    Shell.cleanDirs (buildDir :: allFoldersToClean)
+)
+
+Fake.Core.Target.create "Build" (fun _ ->
+    DotNet.build (fun p ->
+        { p with
+            Configuration = DotNet.BuildConfiguration.Release;
+        }) ""
+)
+
+Fake.Core.Target.create "Test" (fun _ ->
+    let test project =
+        DotNet.test (fun p ->
+            { p with
+                Configuration = DotNet.BuildConfiguration.Release;
+                NoBuild = true
+            }) project
+    test "FluentAssertions.OneOf.Tests"
+)
+
+Fake.Core.Target.create "Package" (fun _ ->
+
+    let packProject version projectPath =
+        DotNet.pack (fun p ->
+            { p with
+                Configuration = DotNet.BuildConfiguration.Release
+                OutputPath = Some "../build"
+                NoBuild = true
+            } |> withVersionArgs version) projectPath
+
+    Directory.ensure buildDir
+    packProject config.Main.Version "FluentAssertions.OneOf/FluentAssertions.OneOf.csproj"
+    packProject config.ROP.Version "FluentAssertions.OneOf.ROP/FluentAssertions.OneOf.ROP.csproj"
+)
+
+
+
+Fake.Core.Target.create "Publish" (fun _ ->
+
+    let publishPackage shouldPublish version project =
+        if shouldPublish then
+            sprintf "push build/%s.%s.nupkg" project version
+                |> runPaketCommand globalTimeout
+        else
+            Trace.log (sprintf "Package upload skipped because %s was not set to be published" project )
+
+    let publishBothPackages ()  =
+        publishPackage config.Main.Publish config.Main.Version "FluentAssertions.OneOf"
+        publishPackage config.ROP.Publish config.ROP.Version "FluentAssertions.OneOf.ROP"
+
+    match Environment.environVarOrNone nugetKeyVariable with
+    | Some _ -> publishBothPackages()
     | None -> Trace.log (sprintf "Package upload skipped because %s was not found" nugetKeyVariable)
 )
 
-Target.Create "Test"
-
 // *** Define Dependencies ***
+open Fake.Core.TargetOperators
+
 "Clean"
     ==> "Build"
 
@@ -114,4 +148,4 @@ Target.Create "Test"
     ==> "Publish"
 
 // *** Start Build ***
-Target.RunOrDefault "Package"
+Fake.Core.Target.runOrDefault "Package"

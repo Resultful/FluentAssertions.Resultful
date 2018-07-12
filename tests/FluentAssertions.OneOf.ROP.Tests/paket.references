@@ -1,0 +1,7 @@
+OneOf
+OneOf.ROP
+FluentAssertions
+NUnit
+NUnit3TestAdapter
+Microsoft.NET.Test.Sdk
+Microsoft.NETCore.Platforms

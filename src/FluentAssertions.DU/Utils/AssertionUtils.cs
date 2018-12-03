@@ -6,29 +6,53 @@ using System.Text;
 using FluentAssertions;
 using FluentAssertions.Equivalency;
 using FluentAssertions.Execution;
+using static FluentAssertions.DU.AssertionUtils;
 
 namespace FluentAssertions.DU
 {
     public static class AssertionUtils
     {
+        internal static void AssertNoMethod<TResult>(AssertionScope scope, Type assertionType, List<DuMethodInfo> otherPossibilities)
+        {
+            if (otherPossibilities.Any())
+            {
+                string Print(DuMethodInfo info) => string.Join(", ", info.CaseTypes.Select(ReflectionUtils.PrettyPrint));
+                var prettyPrintedCases = string.Join(",", otherPossibilities.Select(x => $"{{{Print(x)}}}"));
+
+                scope.FailWith("Multiple Discriminated Union methods found {0}, method types listed {1} non match {2}",
+                    assertionType.PrettyPrint(), prettyPrintedCases, typeof(TResult).PrettyPrint());
+            }
+
+            scope.FailWith("Unable to find any Discriminated Union method on type {0} for expected type {1}", assertionType.PrettyPrint(), typeof(TResult).PrettyPrint());
+        }
+
+
+        public static TResult Assert<TResult>(this AssertionScope scope, TypeValuePair value)
+        {
+            var result = value.GetDUResult<TResult>(items => AssertNoMethod<TResult>(scope, value.Type, items));
+
+            var assertedResult = CheckItemHelper<TResult>(scope, result.TypeValuePair, result.MethodInfo.CaseTypes);
+
+            return assertedResult;
+        }
 
         internal static TResult CheckItemHelper<TResult>(AssertionScope scope, TypeValuePair typeValuePair,
             params Type[] givenTypes)
         {
             var itemType = typeValuePair.Type;
             var expectedType = typeof(TResult);
-            var expectedTypePretty = ReflectionUtils.PrettyPrint(expectedType);
+            var expectedTypePretty = expectedType.PrettyPrint();
             var givenTypesPretty = string.Join(", ", givenTypes.Select(ReflectionUtils.PrettyPrint));
 
             scope
                 .ForCondition(givenTypes.Contains(expectedType))
-                .FailWith("Func should be one of {0} but found {1} instead.",
+                .FailWith("Value should be one of {0} but found {1} instead.",
                     givenTypesPretty, expectedTypePretty);
 
             scope
                 .ForCondition(expectedType.IsAssignableFrom(itemType))
-                .FailWith("Func should be assignable to {0} but found {1} which cannot be assigned to",
-                    expectedTypePretty, ReflectionUtils.PrettyPrint(itemType));
+                .FailWith("Value should be assignable to {0} but found {1} instead",
+                    expectedTypePretty, itemType.PrettyPrint());
 
             return (TResult)typeValuePair.Value;
         }

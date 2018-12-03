@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\..\netfx.props" />
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0; net451; net47</TargetFrameworks>
-    <AssemblyName>FluentAssertions.OneOf</AssemblyName>
     <Authors>Ryan Kelly</Authors>
     <RepositoryUrl>https://github.com/rtkelly13/FluentAssertions.OneOf</RepositoryUrl>
     <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>

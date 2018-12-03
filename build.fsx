@@ -1,11 +1,13 @@
 #r "paket: groupref build-deps //"
-open Fake.IO
+
 #load "./.fake/build.fsx/intellisense.fsx"
 #if !FAKE
   #r "netstandard"
 #endif
 
+
 open System
+open Fake.IO
 open Fake.Core
 open Fake.DotNet
 

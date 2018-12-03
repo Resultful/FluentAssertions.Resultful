@@ -5,8 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 namespace FluentAssertions.DU
-{ 
-
+{
     internal static class ReflectionUtils
     {
         internal static IEnumerable<MethodInfo> GetMethods(this Type type, string name)
@@ -27,34 +26,34 @@ namespace FluentAssertions.DU
                 .Select(x => GetMatchableTypes(x, true))
                 .Where(x => x.CaseTypes != null);
 
-        internal static TResult GetDUResult<TResult>(this object item, Action<int> actionMethodPair)
+
+        internal static DuResult GetDUResult<TResult>(this TypeValuePair item, Action<List<DuMethodInfo>> failedToFind)
         {
-            var method = item.GetType().GetAppropriateMethod(typeof(TResult));
+            var resultType = typeof(TResult);
+            var methodInfo = item.Type.GetAppropriateMethod(resultType, out var possibilities);
 
-            var result = item.GetDUResult(method, actionMethodPair);
+            if(methodInfo == null)
+            {
+                failedToFind(possibilities);
+            }
+            var result = item.Value.GetDUResult(methodInfo);
 
-            return (TResult)result.Value;
+            return new DuResult(methodInfo, result);
         }
 
 
-        internal static TypeValuePair GetDUResult(this object item, DuMethodInfo duMethodData, Action<int> wrappedFunction)
+        //Action<int> wrappedFunction -- this arg has been removed because I haven't figured out the generics to inline the assertions being tested
+        internal static TypeValuePair GetDUResult(this object item, DuMethodInfo duMethodData)
         {
             if (duMethodData.IsSwitch)
             {
                 TypeValuePair closureResult  = null;
 
                 void GetSwitch<TValue>(TValue value)
-                {
-                    var method = (Action<TValue>)wrappedFunction.MakeAction(typeof(TValue));
-
-                    method(value);
-                    closureResult = new TypeValuePair(typeof(TValue), value);
-                }
+                    => closureResult = new TypeValuePair(typeof(TValue), value);
 
                 void GetSwitchOptional()
-                {
-                    throw new Exception("Optional parameter cannot resolve a value");
-                }
+                    => throw new Exception("Optional parameter cannot resolve a value");
 
                 var switchMainArgs = duMethodData.CaseTypes.Select(x => MethodUtils.MakeAction(GetSwitch, x));
 
@@ -69,18 +68,10 @@ namespace FluentAssertions.DU
             }
 
             TypeValuePair GetMatch<TValue>(TValue value)
-            {
-                var genericMethod = (Action<TValue>)wrappedFunction.MakeAction(typeof(TValue));
-
-                genericMethod.Invoke(value);
-
-                return new TypeValuePair(typeof(TValue), value);
-            }
+                => new TypeValuePair(typeof(TValue), value);
 
             TypeValuePair GetMatchOptional()
-            {
-                throw new Exception("Optional parameter cannot resolve a value");
-            }
+                => throw new Exception("Optional parameter cannot resolve a value");
 
             var mainArgs = duMethodData.CaseTypes.Select(x => MethodUtils.MakeMatchArg(GetMatch, x));
 
@@ -94,24 +85,24 @@ namespace FluentAssertions.DU
                 .Invoke(item, finalArgs);
         }
 
-        internal static DuMethodInfo GetAppropriateMethod(this Type type, Type expectedType)
-            => type
+        internal static DuMethodInfo GetAppropriateMethod(this Type type, Type expectedType, out List<DuMethodInfo> possibilities)
+            => GetAppropriateMethod(type, out possibilities,
+                    x => x.CaseTypes.Any(y => y.IsAssignableFrom(expectedType)));
+
+
+        internal static DuMethodInfo GetAppropriateMethod(this Type type, out List<DuMethodInfo> possibilities, Func<DuMethodInfo, bool> filter)
+        {
+            possibilities = type
                 .GetMatchMethods()
                 .Concat(type.GetSwitchMethods())
-                .Where(x =>
-                {
-                    return x.CaseTypes.Any(y => y.IsAssignableFrom(expectedType));
-                })
+                .Where(filter)
+                .ToList();
+
+            return possibilities
                 .FirstOrDefault();
+        }
 
-
-        internal static DuMethodInfo GetAppropriateMethod(this Type type)
-            => type
-                .GetMatchMethods()
-                .Concat(type.GetSwitchMethods())
-                .FirstOrDefault();
-
-        internal static string PrettyPrint(Type type)
+        internal static string PrettyPrint(this Type type)
         {
             var genericArguments = type.GetGenericArguments();
             if (!genericArguments.Any())

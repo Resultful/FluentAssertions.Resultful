@@ -1,25 +1,36 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using FluentAssertions.Equivalency;
+using FluentAssertions.DU;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 
-namespace FluentAssertions.DU
+namespace FluentAssertions
 {
-    public static class DUAssertionExtensions
+    public static class DuAssertionExtensions
     {
-        public static AndConstraint<TResult> BeCase<TResult>(this ObjectAssertions assertionContext, string because, object[] becauseArgs)
+        public static AndConstraint<TResult> BeCase<TResult>(this ObjectAssertions assertionContext, string because = "", params object[] becauseArgs)
         {
-            void Assert<T>(T value)
+            var value = assertionContext.Subject.CreateFromObject();
+
+            var scope = Execute.Assertion.BecauseOf(because, becauseArgs);
+
+            var result = value.GetDUResult<TResult>(items => AssertionUtils.AssertNoMethod<TResult>(scope, value.Type, items));
+
+            var assertedResult = AssertionUtils.CheckItemHelper<TResult>(scope, result.TypeValuePair, result.MethodInfo.CaseTypes);
+
+            return new AndConstraint<TResult>(assertedResult);
+        }
+
+
+        public static AndConstraint<TResultConstraint> BeCase<TResult, TResultConstraint>(this ObjectAssertions assertionContext, 
+            Func<TResult, TResultConstraint> assertionFunc,
+            string because = "", params object[] becauseArgs)
+        {
+            if (assertionFunc == null)
             {
-                AssertionUtils.CheckItemHelper<TResult>(Execute.Assertion.BecauseOf(because, becauseArgs),
-                    value.Create());
+                throw new ArgumentNullException(nameof(assertionFunc));
             }
-
-            var result = assertionContext.Subject.GetDUResult<TResult>(Assert);
-
-            return new AndConstraint<TResult>(result);
+            var result = assertionContext.BeCase<TResult>(because, becauseArgs);
+            return new AndConstraint<TResultConstraint>(assertionFunc(result.And));
         }
     }
 }

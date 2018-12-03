@@ -8,30 +8,55 @@ using NUnit.Framework;
 
 namespace FluentAssertions.DU.Tests
 {
-    public class DUResolutionTests
+    public class DuResolutionTests
     {
         readonly SwitchableType _testCase = new SwitchableType(
             123, 4.January(2018), TimeSpan.FromMinutes(5), HttpStatusCode.Conflict);
 
         [Test]
-        public void GetFirstDateTimeMethod()
+        public void GetFirstDateTime()
         {
-            void Empty<TValue>(TValue value) { }
-            var result = _testCase.GetDUResult<DateTime>(Empty);
+            var (result, _) = _testCase.Create().GetDUResult<DateTime>(possibilities => {});
 
             result
-                .Should().Be(4.January(2018));
+                .Value
+                .Should()
+                .Be(4.January(2018));
+        }
+
+        [Test]
+        public void GetFirstLongButFindsDateTime()
+        {
+            var (result, _) = _testCase.Create().GetDUResult<long>(possibilities => { });
+
+            result
+                .Value
+                .Should()
+                .Be(4.January(2018));
         }
 
 
         [Test]
         public void GetFirstTimeSpanMethod()
         {
-            void Empty<TValue>(TValue value) { }
-            var result = _testCase.GetDUResult<TimeSpan>(Empty);
+            var (result, _) = _testCase.Create().GetDUResult<TimeSpan>(possibilities => { });
 
             result
-                .Should().Be(TimeSpan.FromMinutes(5));
+                .Value
+                .Should()
+                .Be(TimeSpan.FromMinutes(5));
+        }
+
+
+        [Test]
+        public void GetFirstHttpStatusCodeMethod()
+        {
+            var (result, _) = _testCase.Create().GetDUResult<HttpStatusCode>(possibilities => { });
+
+            result
+                .Value
+                .Should()
+                .Be(HttpStatusCode.Conflict);
         }
 
     }

@@ -2,8 +2,10 @@
 
 void Main()
 {
-    DumpContents("AssertionExtensions.Should.cs", GetAssertionExtensionsContent());
-    DumpContents("OneOfAssertions.cs", GetAssertionContent());
+    DumpContents("FluentAssertions.OneOf/AssertionExtensions.Should.cs", GetAssertionExtensionsContent(1, 8));
+    DumpContents("FluentAssertions.OneOf/OneOfAssertions.cs", GetAssertionContent(1, 8));
+    DumpContents("FluentAssertions.OneOf.Extended/AssertionExtensions.Should.cs", GetAssertionExtensionsContent(9, 32));
+    DumpContents("FluentAssertions.OneOf.Extended/OneOfAssertions.cs", GetAssertionContent(9, 32));
 }
 
 public void DumpContents(string path, string content){
@@ -26,19 +28,19 @@ public string RollOverItems(IEnumerable<string> items, int numberOfTabs, int num
 
 private string _resultType = "TResult";
 
-public string GetAssertionContent()
+public string GetAssertionContent(int minimumTypes, int maximumTypes)
 {
     var sb = new StringBuilder();
     sb.Append(@"using System;
 using OneOf;
-using static FluentAssertions.OneOf.AssertionHelpers;
+using FluentAssertions.DU;
 using FluentAssertions.Equivalency;
 using FluentAssertions.Execution;
 
 namespace FluentAssertions.OneOf
 {");
     var resultConstraintType = "TResultConstraint";
-    for (var i = 1; i < 33; i++)
+    for (var i = minimumTypes; i <= maximumTypes; i++)
     {
         var genericArgs = Enumerable.Range(0, i).Select(e => $"T{e}").ToList();
 
@@ -52,20 +54,18 @@ namespace FluentAssertions.OneOf
 
         public OneOf<{RollOverItems(genericArgs, 3, 10)}> Subject {{ get; }}");
         sb.AppendLine($@"
-        public AndConstraint<{_resultType}> Be<{_resultType}>(
+        public AndConstraint<{_resultType}> BeCase<{_resultType}>(
             string because = """", params object[] becauseArgs)
         {{
-            {_resultType} CheckItem<TItem>(TItem element)
-                => CheckItemHelper<TItem, {_resultType}>(Execute.Assertion.BecauseOf(because, becauseArgs),
-                    element, {RollOverItems(genericArgs.Select(x => $"typeof({x})"), 5, 5)});
-            var result = Subject.Match(
-                {RollOverItems(Enumerable.Repeat("CheckItem", i), 4, 4)}
-            );
-            return new AndConstraint<{_resultType}>(result);
+            var value = Subject.Create();
+
+            var scope = Execute.Assertion.BecauseOf(because, becauseArgs);
+
+            return new AndConstraint<{_resultType}>(scope.Assert<{_resultType}>(value));
         }}");
 
         sb.Append($@"
-        public AndConstraint<{resultConstraintType}> Be<{_resultType}, {resultConstraintType}>(
+        public AndConstraint<{resultConstraintType}> BeCase<{_resultType}, {resultConstraintType}>(
             Func<{_resultType}, {resultConstraintType}> assertionFunc,
             string because = """", params object[] becauseArgs)
         {{");
@@ -76,22 +76,20 @@ namespace FluentAssertions.OneOf
             }");
 
         sb.Append($@"
-            var result = Be<{_resultType}>(because, becauseArgs);
+            var result = BeCase<{_resultType}>(because, becauseArgs);
             return new AndConstraint<{resultConstraintType}>(assertionFunc(result.And));
         }}");
-
-
+//        sb.AppendLine(@"
+//        public void BeEquivalentTo<TExpectation>
+//            (TExpectation expectation, string because = """",
+//            params object[] becauseArgs)
+//                => BeEquivalentTo(expectation, config => config, because, becauseArgs);
+//
+//        public void BeEquivalentTo<TExpectation>(TExpectation expectation,
+//            Func<EquivalencyAssertionOptions<TExpectation>, EquivalencyAssertionOptions<TExpectation>> config,
+//            string because = """", params object[] becauseArgs)
+//                => AssertionHelpers.BeEquivalentTo(Subject, expectation, config, because, becauseArgs);");
         sb.AppendLine(@"
-
-        public void BeEquivalentTo<TExpectation>
-            (TExpectation expectation, string because = """",
-            params object[] becauseArgs)
-                => BeEquivalentTo(expectation, config => config, because, becauseArgs);
-
-        public void BeEquivalentTo<TExpectation>(TExpectation expectation,
-            Func<EquivalencyAssertionOptions<TExpectation>, EquivalencyAssertionOptions<TExpectation>> config,
-            string because = """", params object[] becauseArgs)
-                => AssertionHelpers.BeEquivalentTo(Subject, expectation, config, because, becauseArgs);
     }");
     }
 
@@ -122,7 +120,7 @@ private string BuildExtensionMethod(int numberOfArgs){
         }}";
 }
 
-public string GetAssertionExtensionsContent(){
+public string GetAssertionExtensionsContent(int minimumTypes, int maximumTypes){
     var sb = new StringBuilder();
     sb.Append(@"using System;
 using OneOf;
@@ -132,7 +130,7 @@ namespace FluentAssertions.OneOf
 {
     public static partial class AssertionExtensions
     {");
-    for (var i = 1; i < 33; i++)
+    for (var i = minimumTypes; i <= maximumTypes; i++)
     {
         sb.Append(BuildExtensionMethod(i));
     }

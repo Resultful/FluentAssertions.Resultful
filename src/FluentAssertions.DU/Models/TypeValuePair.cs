@@ -2,9 +2,9 @@
 
 namespace FluentAssertions.DU
 {
-    internal class TypeValuePair
+    public class TypeValuePair
     {
-        public TypeValuePair(Type type, object value)
+        internal TypeValuePair(Type type, object value)
         {
             Type = type;
             Value = value;
@@ -20,11 +20,12 @@ namespace FluentAssertions.DU
         }
     }
 
-    internal static class TypeValuePairExtensions
+    public static class TypeValuePairExtensions
     {
         public static TypeValuePair Create<T>(this T value)
-        {
-            return new TypeValuePair(typeof(T), value);
-        }
+            => new TypeValuePair(typeof(T), value);
+
+        public static TypeValuePair CreateFromObject(this object item)
+            => new TypeValuePair(item.GetType(), item);
     }
 }

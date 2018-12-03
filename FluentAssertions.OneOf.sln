@@ -28,10 +28,13 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.DU.Tests", "tests\FluentAssertions.DU.Tests\FluentAssertions.DU.Tests.csproj", "{101D70A6-1B3E-4E0F-B440-0A808D9B3E3C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{73AE26ED-1BFD-432F-BA9F-3F9BCBF1089B}"
+	ProjectSection(SolutionItems) = preProject
+		src\CreateFile.linq = src\CreateFile.linq
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{43687273-0E13-49B3-A92D-D0293EE0AD22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentAssertions.OneOf.Extended", "src\FluentAssertions.OneOf.Extended\FluentAssertions.OneOf.Extended.csproj", "{07363CEE-21EA-4570-A1C5-D2087AD8D00D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.OneOf.Extended", "src\FluentAssertions.OneOf.Extended\FluentAssertions.OneOf.Extended.csproj", "{07363CEE-21EA-4570-A1C5-D2087AD8D00D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

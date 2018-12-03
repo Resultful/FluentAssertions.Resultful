@@ -14,7 +14,7 @@ namespace FluentAssertions.DU.Tests
         [Test]
         public void GetFirstDateTimeMethod()
         {
-            var result = _testCase.GetType().GetAppropriateMethod(typeof(DateTime));
+            var result = _testCase.GetType().GetAppropriateMethod(typeof(DateTime), out var possibilities);
 
             result
                 .Should()
@@ -36,7 +36,7 @@ namespace FluentAssertions.DU.Tests
         [Test]
         public void GetFirstStringMethod()
         {
-            var result = _testCase.GetType().GetAppropriateMethod(typeof(string));
+            var result = _testCase.GetType().GetAppropriateMethod(typeof(string), out var possibilities);
 
             result
                 .Should()

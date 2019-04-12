@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Reflection;
 
-namespace FluentAssertions.DU
+namespace FluentAssertions.Union.Models
 {
-    public class DuMethodInfo
+    public class UnionMethodInfo
     {
         public Type[] CaseTypes { get; }
         public MethodInfo Method { get; }
         public bool OptionalLast { get; }
         public bool IsSwitch { get; }
 
-        internal DuMethodInfo(Type[] caseTypes, MethodInfo method, bool optionalLast, bool isSwitch)
+        internal UnionMethodInfo(Type[] caseTypes, MethodInfo method, bool optionalLast, bool isSwitch)
         {
             CaseTypes = caseTypes;
             Method = method;

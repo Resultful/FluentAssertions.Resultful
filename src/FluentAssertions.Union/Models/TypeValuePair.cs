@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentAssertions.DU
+namespace FluentAssertions.Union.Models
 {
     public class TypeValuePair
     {

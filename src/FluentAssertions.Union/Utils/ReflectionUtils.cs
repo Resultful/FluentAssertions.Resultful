@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
+using FluentAssertions.Union.Models;
 
-namespace FluentAssertions.DU
+namespace FluentAssertions.Union.Utils
 {
     internal static class ReflectionUtils
     {
@@ -13,21 +13,21 @@ namespace FluentAssertions.DU
                 .GetMethods(BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)
                 .Where(x => x.Name == name);
 
-        internal static IEnumerable<DuMethodInfo> GetMatchMethods(this Type type)
+        internal static IEnumerable<UnionMethodInfo> GetMatchMethods(this Type type)
             => type
                 .GetMethods("Match")
                 .Select(x => GetMatchableTypes(x, false))
                 .Where(x => x.CaseTypes != null);
 
 
-        internal static IEnumerable<DuMethodInfo> GetSwitchMethods(this Type type)
+        internal static IEnumerable<UnionMethodInfo> GetSwitchMethods(this Type type)
             => type
                 .GetMethods("Switch")
                 .Select(x => GetMatchableTypes(x, true))
                 .Where(x => x.CaseTypes != null);
 
 
-        internal static DuResult GetDUResult<TResult>(this TypeValuePair item, Action<List<DuMethodInfo>> failedToFind)
+        internal static UnionResult GetUnionResult<TResult>(this TypeValuePair item, Action<List<UnionMethodInfo>> failedToFind)
         {
             var resultType = typeof(TResult);
             var methodInfo = item.Type.GetAppropriateMethod(resultType, out var possibilities);
@@ -36,16 +36,16 @@ namespace FluentAssertions.DU
             {
                 failedToFind(possibilities);
             }
-            var result = item.Value.GetDUResult(methodInfo);
+            var result = item.Value.GetUnionResult(methodInfo);
 
-            return new DuResult(methodInfo, result);
+            return new UnionResult(methodInfo, result);
         }
 
 
         //Action<int> wrappedFunction -- this arg has been removed because I haven't figured out the generics to inline the assertions being tested
-        internal static TypeValuePair GetDUResult(this object item, DuMethodInfo duMethodData)
+        internal static TypeValuePair GetUnionResult(this object item, UnionMethodInfo unionMethodData)
         {
-            if (duMethodData.IsSwitch)
+            if (unionMethodData.IsSwitch)
             {
                 TypeValuePair closureResult  = null;
 
@@ -55,14 +55,14 @@ namespace FluentAssertions.DU
                 void GetSwitchOptional()
                     => throw new Exception("Optional parameter cannot resolve a value");
 
-                var switchMainArgs = duMethodData.CaseTypes.Select(x => MethodUtils.MakeAction(GetSwitch, x));
+                var switchMainArgs = unionMethodData.CaseTypes.Select(x => MethodUtils.MakeAction(GetSwitch, x));
 
                 var switchFinalArgs = switchMainArgs.Concat(
-                        duMethodData.OptionalLast
+                        unionMethodData.OptionalLast
                             ? new[] { MethodUtils.MakeAction(GetSwitchOptional) }
                             : new object[0])
                     .ToArray();
-                 duMethodData.Method.Invoke(item, switchFinalArgs);
+                 unionMethodData.Method.Invoke(item, switchFinalArgs);
 
                 return closureResult;
             }
@@ -73,24 +73,24 @@ namespace FluentAssertions.DU
             TypeValuePair GetMatchOptional()
                 => throw new Exception("Optional parameter cannot resolve a value");
 
-            var mainArgs = duMethodData.CaseTypes.Select(x => MethodUtils.MakeMatchArg(GetMatch, x));
+            var mainArgs = unionMethodData.CaseTypes.Select(x => MethodUtils.MakeMatchArg(GetMatch, x));
 
             var finalArgs = mainArgs.Concat(
-                    duMethodData.OptionalLast
+                    unionMethodData.OptionalLast
                         ? new[] { MethodUtils.MakeFunc(GetMatchOptional) }
                         : new object[0])
                 .ToArray();
-            return (TypeValuePair)duMethodData.Method
+            return (TypeValuePair)unionMethodData.Method
                 .MakeGenericMethod(typeof(TypeValuePair))
                 .Invoke(item, finalArgs);
         }
 
-        internal static DuMethodInfo GetAppropriateMethod(this Type type, Type expectedType, out List<DuMethodInfo> possibilities)
+        internal static UnionMethodInfo GetAppropriateMethod(this Type type, Type expectedType, out List<UnionMethodInfo> possibilities)
             => GetAppropriateMethod(type, out possibilities,
                     x => x.CaseTypes.Any(y => y.IsAssignableFrom(expectedType)));
 
 
-        internal static DuMethodInfo GetAppropriateMethod(this Type type, out List<DuMethodInfo> possibilities, Func<DuMethodInfo, bool> filter)
+        internal static UnionMethodInfo GetAppropriateMethod(this Type type, out List<UnionMethodInfo> possibilities, Func<UnionMethodInfo, bool> filter)
         {
             possibilities = type
                 .GetMatchMethods()
@@ -114,7 +114,7 @@ namespace FluentAssertions.DU
         }
 
 
-        internal static DuMethodInfo GetMatchableTypes(this MethodInfo methodInfo, bool isSwitch)
+        internal static UnionMethodInfo GetMatchableTypes(this MethodInfo methodInfo, bool isSwitch)
         {
             if ((methodInfo.IsGenericMethod &&
                 methodInfo.IsGenericMethodDefinition &&
@@ -187,10 +187,10 @@ namespace FluentAssertions.DU
                         .TakeWhile((_, index) => index < itemsToGet)
                         .Select(x => x.ParameterType.GenericTypeArguments[0])
                         .ToArray();
-                    return new DuMethodInfo(types, methodInfo, optional, isSwitch);
+                    return new UnionMethodInfo(types, methodInfo, optional, isSwitch);
                 }
             }
-            return new DuMethodInfo(null, methodInfo, false, isSwitch);
+            return new UnionMethodInfo(null, methodInfo, false, isSwitch);
         }
     }
 }

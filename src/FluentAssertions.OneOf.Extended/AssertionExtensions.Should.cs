@@ -1,8 +1,6 @@
-using System;
 using OneOf;
-using FluentAssertions;
 
-namespace FluentAssertions.OneOf
+namespace FluentAssertions.OneOf.Extended
 {
     public static partial class AssertionExtensions
     {

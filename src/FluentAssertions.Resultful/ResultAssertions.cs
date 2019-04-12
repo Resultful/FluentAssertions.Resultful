@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using OneOf.ROP;
+using Resultful;
 
-namespace FluentAssertions.OneOf.ROP
+namespace FluentAssertions.Resultful
 {
     public class ResultAssertions<T, TError>
     {

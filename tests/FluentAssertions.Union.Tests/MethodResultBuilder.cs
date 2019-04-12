@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Reflection;
+using FluentAssertions.Union.Models;
 
-namespace FluentAssertions.DU.Tests
+namespace FluentAssertions.Union.Tests
 {
     internal class MethodResultBuilder
     {
@@ -10,6 +11,6 @@ namespace FluentAssertions.DU.Tests
         public bool OptionalLast { get; set; }
         public bool IsSwitch { get; set; }
 
-        public DuMethodInfo Create() => new DuMethodInfo(CaseTypes, Method, OptionalLast, IsSwitch);
+        public UnionMethodInfo Create() => new UnionMethodInfo(CaseTypes, Method, OptionalLast, IsSwitch);
     }
 }

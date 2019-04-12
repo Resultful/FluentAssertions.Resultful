@@ -19,13 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.OneOf", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.OneOf.Tests", "tests\FluentAssertions.OneOf.Tests\FluentAssertions.OneOf.Tests.csproj", "{AE1C4C93-7061-4EB9-AE75-7422E21F31E7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.OneOf.ROP", "src\FluentAssertions.OneOf.ROP\FluentAssertions.OneOf.ROP.csproj", "{7049F5F7-6D26-4131-88C2-F8D31E8041CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.Resultful", "src\FluentAssertions.Resultful\FluentAssertions.Resultful.csproj", "{7049F5F7-6D26-4131-88C2-F8D31E8041CB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.OneOf.ROP.Tests", "tests\FluentAssertions.OneOf.ROP.Tests\FluentAssertions.OneOf.ROP.Tests.csproj", "{987D65D0-5E0F-4E6B-AD6B-65EABE168026}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.DU", "src\FluentAssertions.DU\FluentAssertions.DU.csproj", "{10666BB8-134F-4F5E-9E5B-DB117A446644}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.DU.Tests", "tests\FluentAssertions.DU.Tests\FluentAssertions.DU.Tests.csproj", "{101D70A6-1B3E-4E0F-B440-0A808D9B3E3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.Resultful.Tests", "tests\FluentAssertions.Resultful.Tests\FluentAssertions.Resultful.Tests.csproj", "{987D65D0-5E0F-4E6B-AD6B-65EABE168026}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{73AE26ED-1BFD-432F-BA9F-3F9BCBF1089B}"
 	ProjectSection(SolutionItems) = preProject
@@ -35,6 +31,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{43687273-0E13-49B3-A92D-D0293EE0AD22}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.OneOf.Extended", "src\FluentAssertions.OneOf.Extended\FluentAssertions.OneOf.Extended.csproj", "{07363CEE-21EA-4570-A1C5-D2087AD8D00D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.Union.Tests", "tests\FluentAssertions.Union.Tests\FluentAssertions.Union.Tests.csproj", "{EA7F379C-5DF0-49AE-BBF0-BB57A99646FC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentAssertions.Union", "src\FluentAssertions.Union\FluentAssertions.Union.csproj", "{5C2803C4-7A7C-4035-9083-9F121396DC17}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,18 +58,18 @@ Global
 		{987D65D0-5E0F-4E6B-AD6B-65EABE168026}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{987D65D0-5E0F-4E6B-AD6B-65EABE168026}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{987D65D0-5E0F-4E6B-AD6B-65EABE168026}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10666BB8-134F-4F5E-9E5B-DB117A446644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10666BB8-134F-4F5E-9E5B-DB117A446644}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10666BB8-134F-4F5E-9E5B-DB117A446644}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10666BB8-134F-4F5E-9E5B-DB117A446644}.Release|Any CPU.Build.0 = Release|Any CPU
-		{101D70A6-1B3E-4E0F-B440-0A808D9B3E3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{101D70A6-1B3E-4E0F-B440-0A808D9B3E3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{101D70A6-1B3E-4E0F-B440-0A808D9B3E3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{101D70A6-1B3E-4E0F-B440-0A808D9B3E3C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{07363CEE-21EA-4570-A1C5-D2087AD8D00D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{07363CEE-21EA-4570-A1C5-D2087AD8D00D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07363CEE-21EA-4570-A1C5-D2087AD8D00D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07363CEE-21EA-4570-A1C5-D2087AD8D00D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA7F379C-5DF0-49AE-BBF0-BB57A99646FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA7F379C-5DF0-49AE-BBF0-BB57A99646FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA7F379C-5DF0-49AE-BBF0-BB57A99646FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA7F379C-5DF0-49AE-BBF0-BB57A99646FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C2803C4-7A7C-4035-9083-9F121396DC17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C2803C4-7A7C-4035-9083-9F121396DC17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C2803C4-7A7C-4035-9083-9F121396DC17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C2803C4-7A7C-4035-9083-9F121396DC17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -79,9 +79,9 @@ Global
 		{AE1C4C93-7061-4EB9-AE75-7422E21F31E7} = {43687273-0E13-49B3-A92D-D0293EE0AD22}
 		{7049F5F7-6D26-4131-88C2-F8D31E8041CB} = {73AE26ED-1BFD-432F-BA9F-3F9BCBF1089B}
 		{987D65D0-5E0F-4E6B-AD6B-65EABE168026} = {43687273-0E13-49B3-A92D-D0293EE0AD22}
-		{10666BB8-134F-4F5E-9E5B-DB117A446644} = {73AE26ED-1BFD-432F-BA9F-3F9BCBF1089B}
-		{101D70A6-1B3E-4E0F-B440-0A808D9B3E3C} = {43687273-0E13-49B3-A92D-D0293EE0AD22}
 		{07363CEE-21EA-4570-A1C5-D2087AD8D00D} = {73AE26ED-1BFD-432F-BA9F-3F9BCBF1089B}
+		{EA7F379C-5DF0-49AE-BBF0-BB57A99646FC} = {43687273-0E13-49B3-A92D-D0293EE0AD22}
+		{5C2803C4-7A7C-4035-9083-9F121396DC17} = {73AE26ED-1BFD-432F-BA9F-3F9BCBF1089B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {69C29E4C-FC1D-4191-8C99-10A69F19AC26}

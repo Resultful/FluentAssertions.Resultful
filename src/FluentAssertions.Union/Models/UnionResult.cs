@@ -1,18 +1,18 @@
 ﻿using System;
 
-namespace FluentAssertions.DU
+namespace FluentAssertions.Union.Models
 {
-    public class DuResult<T>
+    public class UnionResult<T>
     {
 
 
-        internal DuResult(DuMethodInfo methodInfo, T value)
+        internal UnionResult(UnionMethodInfo methodInfo, T value)
         {
             MethodInfo = methodInfo;
             Value = value;
         }
 
-        public DuMethodInfo MethodInfo { get; }
+        public UnionMethodInfo MethodInfo { get; }
         public T Value { get; }
 
         public void Deconstruct(out T value, out object methodInfo)
@@ -22,17 +22,17 @@ namespace FluentAssertions.DU
         }
     }
 
-    public class DuResult
+    public class UnionResult
     {
 
 
-        internal DuResult(DuMethodInfo methodInfo, TypeValuePair typeValuePair)
+        internal UnionResult(UnionMethodInfo methodInfo, TypeValuePair typeValuePair)
         {
             MethodInfo = methodInfo;
             TypeValuePair = typeValuePair;
         }
 
-        public DuMethodInfo MethodInfo { get; }
+        public UnionMethodInfo MethodInfo { get; }
         public TypeValuePair TypeValuePair { get; }
 
         public void Deconstruct(out TypeValuePair typeValuePair, out object methodInfo)
@@ -42,7 +42,7 @@ namespace FluentAssertions.DU
         }
 
 
-        public static DuResult<TResult> Get<TResult>()
+        public static UnionResult<TResult> Get<TResult>()
         {
             throw new NotImplementedException();
         }

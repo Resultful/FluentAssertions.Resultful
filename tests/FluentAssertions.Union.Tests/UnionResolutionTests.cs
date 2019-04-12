@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
 using FluentAssertions.Extensions;
+using FluentAssertions.Union.Models;
+using FluentAssertions.Union.Utils;
 using NUnit.Framework;
 
-namespace FluentAssertions.DU.Tests
+namespace FluentAssertions.Union.Tests
 {
-    public class DuResolutionTests
+    public class UnionResolutionTests
     {
         readonly SwitchableType _testCase = new SwitchableType(
             123, 4.January(2018), TimeSpan.FromMinutes(5), HttpStatusCode.Conflict);
@@ -16,7 +15,7 @@ namespace FluentAssertions.DU.Tests
         [Test]
         public void GetFirstDateTime()
         {
-            var (result, _) = _testCase.Create().GetDUResult<DateTime>(possibilities => {});
+            var (result, _) = _testCase.Create().GetUnionResult<DateTime>(possibilities => {});
 
             result
                 .Value
@@ -27,7 +26,7 @@ namespace FluentAssertions.DU.Tests
         [Test]
         public void GetFirstLongButFindsDateTime()
         {
-            var (result, _) = _testCase.Create().GetDUResult<long>(possibilities => { });
+            var (result, _) = _testCase.Create().GetUnionResult<long>(possibilities => { });
 
             result
                 .Value
@@ -39,7 +38,7 @@ namespace FluentAssertions.DU.Tests
         [Test]
         public void GetFirstTimeSpanMethod()
         {
-            var (result, _) = _testCase.Create().GetDUResult<TimeSpan>(possibilities => { });
+            var (result, _) = _testCase.Create().GetUnionResult<TimeSpan>(possibilities => { });
 
             result
                 .Value
@@ -51,7 +50,7 @@ namespace FluentAssertions.DU.Tests
         [Test]
         public void GetFirstHttpStatusCodeMethod()
         {
-            var (result, _) = _testCase.Create().GetDUResult<HttpStatusCode>(possibilities => { });
+            var (result, _) = _testCase.Create().GetUnionResult<HttpStatusCode>(possibilities => { });
 
             result
                 .Value

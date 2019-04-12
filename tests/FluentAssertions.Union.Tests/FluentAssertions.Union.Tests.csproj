@@ -6,7 +6,7 @@
     <NoWarn>$(NoWarn);NU1605</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\FluentAssertions.DU\FluentAssertions.DU.csproj" />
+    <ProjectReference Include="..\..\src\FluentAssertions.Union\FluentAssertions.Union.csproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

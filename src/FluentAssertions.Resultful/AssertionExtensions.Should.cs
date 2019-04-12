@@ -1,6 +1,7 @@
-using OneOf.ROP;
+using FluentAssertions.Resultful;
+using Resultful;
 
-namespace FluentAssertions.OneOf.ROP
+namespace FluentAssertions.Resultful
 {
     public static partial class AssertionExtensions
     {

@@ -1,7 +1,9 @@
-﻿using NUnit.Framework;
-using System;
+﻿using System;
+using FluentAssertions.Union.Models;
+using FluentAssertions.Union.Utils;
+using NUnit.Framework;
 
-namespace FluentAssertions.DU.Tests
+namespace FluentAssertions.Union.Tests
 {
     public class MethodUtilsTests
     {

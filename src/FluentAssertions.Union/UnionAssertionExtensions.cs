@@ -1,11 +1,12 @@
 ﻿using System;
-using FluentAssertions.DU;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+using FluentAssertions.Union.Models;
+using FluentAssertions.Union.Utils;
 
-namespace FluentAssertions
+namespace FluentAssertions.Union
 {
-    public static class DuAssertionExtensions
+    public static class UnionAssertionExtensions
     {
         public static AndConstraint<TResult> BeCase<TResult>(this ObjectAssertions assertionContext, string because = "", params object[] becauseArgs)
         {
@@ -13,7 +14,7 @@ namespace FluentAssertions
 
             var scope = Execute.Assertion.BecauseOf(because, becauseArgs);
 
-            var result = value.GetDUResult<TResult>(items => AssertionUtils.AssertNoMethod<TResult>(scope, value.Type, items));
+            var result = value.GetUnionResult<TResult>(items => AssertionUtils.AssertNoMethod<TResult>(scope, value.Type, items));
 
             var assertedResult = AssertionUtils.CheckItemHelper<TResult>(scope, result.TypeValuePair, result.MethodInfo.CaseTypes);
 

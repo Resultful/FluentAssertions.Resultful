@@ -1,8 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\netfx.props" />
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0; net451; net47</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <Authors>Ryan Kelly</Authors>
     <RepositoryUrl>https://github.com/rtkelly13/FluentAssertions.OneOf</RepositoryUrl>
     <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
@@ -12,7 +11,7 @@
     </Description>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentAssertions.DU\FluentAssertions.DU.csproj" />
+    <ProjectReference Include="..\FluentAssertions.Union\FluentAssertions.Union.csproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

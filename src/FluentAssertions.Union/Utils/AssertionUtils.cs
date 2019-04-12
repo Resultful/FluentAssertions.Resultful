@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using FluentAssertions;
 using FluentAssertions.Equivalency;
 using FluentAssertions.Execution;
-using static FluentAssertions.DU.AssertionUtils;
+using FluentAssertions.Union.Models;
 
-namespace FluentAssertions.DU
+namespace FluentAssertions.Union.Utils
 {
     public static class AssertionUtils
     {
-        internal static void AssertNoMethod<TResult>(AssertionScope scope, Type assertionType, List<DuMethodInfo> otherPossibilities)
+        internal static void AssertNoMethod<TResult>(AssertionScope scope, Type assertionType, List<UnionMethodInfo> otherPossibilities)
         {
             if (otherPossibilities.Any())
             {
-                string Print(DuMethodInfo info) => string.Join(", ", info.CaseTypes.Select(ReflectionUtils.PrettyPrint));
+                string Print(UnionMethodInfo info) => string.Join(", ", info.CaseTypes.Select(ReflectionUtils.PrettyPrint));
                 var prettyPrintedCases = string.Join(",", otherPossibilities.Select(x => $"{{{Print(x)}}}"));
 
                 scope.FailWith("Multiple Discriminated Union methods found {0}, method types listed {1} non match {2}",
@@ -29,7 +26,7 @@ namespace FluentAssertions.DU
 
         public static TResult Assert<TResult>(this AssertionScope scope, TypeValuePair value)
         {
-            var result = value.GetDUResult<TResult>(items => AssertNoMethod<TResult>(scope, value.Type, items));
+            var result = value.GetUnionResult<TResult>(items => AssertNoMethod<TResult>(scope, value.Type, items));
 
             var assertedResult = CheckItemHelper<TResult>(scope, result.TypeValuePair, result.MethodInfo.CaseTypes);
 

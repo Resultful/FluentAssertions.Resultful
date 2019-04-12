@@ -1,10 +1,10 @@
 using System;
-using OneOf;
-using FluentAssertions.DU;
-using FluentAssertions.Equivalency;
 using FluentAssertions.Execution;
+using FluentAssertions.Union.Models;
+using FluentAssertions.Union.Utils;
+using OneOf;
 
-namespace FluentAssertions.OneOf
+namespace FluentAssertions.OneOf.Extended
 {
     public class OneOfAssertions<T0, T1, T2, T3, T4, T5, T6, T7, T8>
     {

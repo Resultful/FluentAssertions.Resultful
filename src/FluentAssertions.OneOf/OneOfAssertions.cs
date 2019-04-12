@@ -1,8 +1,9 @@
 using System;
 using OneOf;
-using FluentAssertions.DU;
 using FluentAssertions.Equivalency;
 using FluentAssertions.Execution;
+using FluentAssertions.Union.Models;
+using FluentAssertions.Union.Utils;
 
 namespace FluentAssertions.OneOf
 {

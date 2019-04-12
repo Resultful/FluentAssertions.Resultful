@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using OneOf;
 
-namespace FluentAssertions.DU.Tests
+namespace FluentAssertions.Union.Tests
 {
     public class SwitchableType
     {

@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using FluentAssertions.Union.Models;
 
-namespace FluentAssertions.DU
+namespace FluentAssertions.Union.Utils
 {
     public static class MethodUtils
     {

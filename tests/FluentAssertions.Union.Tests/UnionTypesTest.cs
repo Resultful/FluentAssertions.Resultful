@@ -2,11 +2,12 @@
 using System.Linq;
 using System.Net;
 using FluentAssertions.Extensions;
+using FluentAssertions.Union.Utils;
 using NUnit.Framework;
 
-namespace FluentAssertions.DU.Tests
+namespace FluentAssertions.Union.Tests
 {
-    public class DuTypesTest
+    public class UnionTypesTest
     {
         readonly SwitchableType _testCase = new SwitchableType(
             123, 4.January(2018), TimeSpan.FromMinutes(5), HttpStatusCode.Conflict);

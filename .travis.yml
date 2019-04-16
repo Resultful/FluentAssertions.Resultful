@@ -9,7 +9,7 @@ before_install:
 script:
   - "./build.sh"
 env:
-  - RESULTFUL_PACKAGE_VERSION=0.0.1-beta01 UNION_PACKAGE_VERSION=0.0.1-beta01 ONE_OF_PACKAGE_VERSION=0.0.1-beta01
+  - RESULTFUL_PACKAGE_VERSION=0.0.6-beta01 UNION_PACKAGE_VERSION=0.0.6-beta01 ONE_OF_PACKAGE_VERSION=0.0.6-beta01
 branches:
   only:
     - master

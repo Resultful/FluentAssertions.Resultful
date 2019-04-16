@@ -144,7 +144,7 @@ Target.create "Package" (fun _ ->
 Target.create "Publish"
     (fun _ ->
     let nugetKeyVariable = "NUGET_KEY"
-    let publishPackage apiKey packageName (version : SemVerInfo) =
+    let publishPackage  packageName apiKey (version : SemVerInfo) =
         let packagePath = sprintf "%s.%s.nupkg" packageName (version.Normalize())
         runDotNet (sprintf "nuget push -k %s -s %s ./build/%s" apiKey "https://www.myget.org/F/resultful" packagePath)
             "."

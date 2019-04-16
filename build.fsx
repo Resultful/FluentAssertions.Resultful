@@ -1,117 +1,163 @@
-#r "packages/build-deps/FAKE/tools/FakeLib.dll"
-#r "packages/build-deps/FSharp.Configuration/lib/net45/FSharp.Configuration.dll"
+#r "paket: groupref build-deps //"
+#load "./.fake/build.fsx/intellisense.fsx"
+#if !FAKE
+#r "netstandard"
+#r "Facades/netstandard"
+#endif
 
-open System
-open Fake
+
 open Fake.Core
+open Fake.DotNet
 open Fake.IO
-open Fake.Core.TargetOperators
-open FSharp.Configuration
+open Fake.IO.Globbing.Operators
+open Fake.Tools.Git
+open System
+open System.IO
 
-type VersionConfig = YamlConfig<"version.yml">
-let versionFile = VersionConfig()
+type BuildInfo =
+    { Version : SemVerInfo option
+      Project : string
+      PackageName : string }
 
-let getVersion inputStr =
-    if SemVer.isValidSemVer inputStr then
-        SemVer.parse inputStr
-    else
-        failwith "Value in version.yml must adhere to the SemanticVersion 2.0 Spec"
+let env x =
+    let result = Environment.environVarOrNone x
+    match result with
+    | Some v -> Trace.logfn "ENV: %s - VALUE: %s" x v
+    | None -> Trace.logfn "Did not find variable with name: %s" x
+    result
 
-let versionToPublish  = getVersion versionFile.Version
+let envSecret x =
+    let result = Environment.environVarOrNone x
+    match result with
+    | Some v -> TraceSecrets.register v (sprintf "ENVSecret %s" x)
+    | None -> ()
+    result
 
-let globalTimeout = TimeSpan.FromMinutes 1.;
+let envStrict x = env x |> Option.defaultWith (fun () -> failwithf "Unable to get environmentVariable %s" x)
 
-let runCommand execuatable command timeout  =
-    let exitCode =
-        Process.ExecProcess (fun info ->
-        { info with
-            FileName = execuatable
-            Arguments = command
-        }) (timeout)
+let runDotNet cmd workingDir =
+    let result = DotNet.exec (DotNet.Options.withWorkingDirectory workingDir) cmd ""
+    if result.ExitCode <> 0 then failwithf "'dotnet %s' failed in %s" cmd workingDir
 
-    if exitCode <> 0 then failwithf "Look at error for  command %s %s" execuatable command
+let assertVersion inputStr =
+    if SemVer.isValid inputStr then SemVer.parse inputStr
+    else failwithf "Value in version.yml must adhere to the SemanticVersion 2.0 Spec - %s" inputStr
 
+let packageVersion versionEnvName =
+    let version = env versionEnvName |> Option.defaultValue "0.0.1-alpha01"
+    let semVerVersion = assertVersion version
+    let shortVersion = sprintf "%d.%d.%d" semVerVersion.Major semVerVersion.Minor semVerVersion.Patch
 
-let runMonoCommand timeout command  =
-    runCommand "mono" command timeout
+    let localBranch =
+        let gitBranch = Information.getBranchName "."
+        match gitBranch with
+        | "master"
+        | "develop" -> Some semVerVersion
+        | _ ->
+            let rnd = Random()
+            (// Need to figure out what to do with this case
+             sprintf "%s-alpha.build%04i+experiment.%s" shortVersion (rnd.Next(1, 1000)) gitBranch)
+            |> assertVersion
+            |> Some
 
-let runPaketCommand timeout paketCommand =
-    sprintf ".paket/paket.exe %s" paketCommand |> runMonoCommand timeout
+    let travisBranch() =
+        let branch = envStrict "TRAVIS_BRANCH"
+        let buildNum = envStrict "TRAVIS_BUILD_NUMBER" |> int32
+        let pr = envStrict "TRAVIS_PULL_REQUEST"
+        if pr <> "false" then
+            let prBranch = envStrict "TRAVIS_PULL_REQUEST_BRANCH"
+            let prNumber = int32 pr
+            // eg 2.0.1-cipr004+BranchNum003 PR 3 Build 4
+            sprintf "%s-alpha.cipr%03i+%s%03i" shortVersion buildNum prBranch prNumber
+            |> assertVersion
+            |> Some
+        elif branch = "master" then Some semVerVersion
+        else None
 
-let buildDir = "./build"
+    // Need to figure out what to do with this case
+    //Some (sprintf "%s-ci%04i" version buildNum)
+    let ciBranch =
+        let isTravis = env "TRAVIS" = Some "true"
+        if isTravis then travisBranch()
+        else None
 
+    let result =
+        if env "CI" = Some "true" then ciBranch
+        else localBranch
+
+    match result with
+    | Some x -> Trace.logfn "Version to package %A" x
+    | None -> Trace.log "No Version generated, so no package will be generated"
+    result
+
+let versions =
+    lazy
+        ([ { Version = packageVersion "RESULTFUL_PACKAGE_VERSION"
+             Project = "src/FluentAssertions.Resultful/FluentAssertions.Resultful.csproj"
+             PackageName = "FluentAssertions.Resultful" }
+           { Version = packageVersion "UNION_PACKAGE_VERSION"
+             Project = "src/FluentAssertions.Union/FluentAssertions.Union.csproj"
+             PackageName = "FluentAssertions.Union" }
+           { Version = packageVersion "ONE_OF_PACKAGE_VERSION"
+             Project = "src/FluentAssertions.OneOf/FluentAssertions.OneOf.csproj"
+             PackageName = "FluentAssertions.OneOf" }
+           { Version = packageVersion "ONE_OF_PACKAGE_VERSION"
+             Project = "src/FluentAssertions.OneOf.Extended/FluentAssertions.OneOf.Extended.csproj"
+             PackageName = "FluentAssertions.OneOf.Extended" } ])
+
+let buildDir = "build"
+let inline withVersionArgs version options =
+    options |> DotNet.Options.withCustomParams (Some(sprintf "/p:VersionPrefix=\"%s\"" version))
+
+let getProjFolders projPath =
+    let dir = Path.GetDirectoryName projPath
+    [ sprintf "%s/bin" dir
+      sprintf "%s/obj" dir ]
 
 // *** Define Targets ***
-Target.Create "Clean" (fun _ ->
-    let projects = [
-        "./FluentAssertions.OneOf"
-        "./FluentAssertions.OneOf.Tests"
-    ]
+Target.create "Clean" (fun _ ->
+    let projFoldersToDelete =
+        !!"**/*.csproj"
+        |> List.ofSeq
+        |> List.collect getProjFolders
 
-    let allFoledersToClean =
-        projects
-        |> List.collect (fun project -> [ sprintf "%s/bin" project ; sprintf "%s/obj" project ])
-
-    Shell.CleanDirs (buildDir :: allFoledersToClean)
-)
-
-Target.Create "Build" (fun _ ->
-    DotNetCli.Build (fun p ->
-        { p with
-            TimeOut = globalTimeout;
-            Configuration = "Release";
-        })
-)
-
-Target.Create "Test" (fun _ ->
-    Fake.DotNetCli.Test (fun p ->
-        { p with
-            TimeOut = globalTimeout;
-            Configuration = "Release";
-            Project = "FluentAssertions.OneOf.Tests";
-            AdditionalArgs = [ "--no-build" ; ]
-        })
-)
-
-Target.Create "Package" (fun _ ->
+    let allFoldersToClean = (buildDir :: projFoldersToDelete)
+    Trace.logfn "All folders to clean: %A" allFoldersToClean
+    Shell.cleanDirs allFoldersToClean)
+Target.create "Build" (fun _ -> DotNet.build (fun p -> { p with Configuration = DotNet.BuildConfiguration.Release }) "")
+Target.create "Test" (fun _ ->
+    DotNet.test (fun p ->
+        { p with Configuration = DotNet.BuildConfiguration.Release
+                 NoBuild = true }) ".")
+Target.create "Package" (fun _ ->
     Directory.ensure buildDir
-    let finalVersion = versionToPublish.ToString();
-    Fake.DotNetCli.Pack(fun p ->
-        { p with
-            TimeOut = globalTimeout;
-            Configuration = "Release";
-            OutputPath = "../build";
-            AdditionalArgs = [ "--no-build"; sprintf "/p:VersionPrefix=\"%s\"" finalVersion ; ]//"--include-source" ;  "--include-symbols"  ]
-        })
-)
-
-let publishPackage version =
-    let finalVersion = version.ToString();
-    sprintf "push build/FluentAssertions.OneOf.%s.nupkg" finalVersion
-        |> runPaketCommand globalTimeout
-
-let nugetKeyVariable =
-    "NUGET_KEY"
-
-Target.Create "Publish" (fun _ ->
-    match environVarOrNone nugetKeyVariable with
-    | Some _ -> publishPackage versionToPublish
-    | None -> Trace.log (sprintf "Package upload skipped because %s was not found" nugetKeyVariable)
-)
-
-Target.Create "Test"
+    let packProject (version : SemVerInfo) projectPath =
+        DotNet.pack (fun p ->
+            { p with Configuration = DotNet.BuildConfiguration.Release
+                     OutputPath = Some(sprintf "../../%s" buildDir)
+                     NoBuild = true }
+            |> withVersionArgs (version.ToString())) projectPath
+    for x in versions.Value do
+        match x.Version with
+        | Some v -> packProject v x.Project
+        | None -> ())
+Target.create "Publish"
+    (fun _ ->
+    let nugetKeyVariable = "NUGET_KEY"
+    let publishPackage  packageName apiKey (version : SemVerInfo) =
+        let packagePath = sprintf "%s.%s.nupkg" packageName (version.Normalize())
+        runDotNet (sprintf "nuget push -k %s -s %s ./build/%s" apiKey "https://www.myget.org/F/resultful" packagePath)
+            "."
+    for x in versions.Value do
+        match envSecret nugetKeyVariable, x.Version with
+        | Some key, Some ver -> publishPackage x.PackageName key ver
+        | x, y ->
+            Trace.logfn "Package upload skipped because %s no API Key: %A and/or package version %A" nugetKeyVariable x
+                y)
 
 // *** Define Dependencies ***
-"Clean"
-    ==> "Build"
+open Fake.Core.TargetOperators
 
-"Build"
-    ==> "Package"
-    ==> "Publish"
-
-"Build"
-    ==> "Test"
-    ==> "Publish"
-
+"Clean" ==> "Build" ==> "Test" ==> "Package" ==> "Publish"
 // *** Start Build ***
-Target.RunOrDefault "Package"
+Fake.Core.Target.runOrDefault "Package"

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0</TargetFrameworks>
+    <Authors>Ryan Kelly</Authors>
+    <RepositoryUrl>https://github.com/rtkelly13/FluentAssertions.OneOf</RepositoryUrl>
+    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
+    <Description>
+      Extension to FluentAssertions which improves the usage of OneOf to allow easier unit testing.
+      It does this by providing extensions which fail with useful errors when OneOf like values are found and acted upon.
+    </Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluentAssertions.Union\FluentAssertions.Union.csproj" />
+  </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
+</Project>

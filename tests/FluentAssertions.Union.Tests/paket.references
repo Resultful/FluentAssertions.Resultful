@@ -1,5 +1,6 @@
-OneOf
 FluentAssertions
 NUnit
 NUnit3TestAdapter
 Microsoft.NET.Test.Sdk
+OneOf
+Microsoft.NETCore.Platforms

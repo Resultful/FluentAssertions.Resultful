@@ -1,3 +1,4 @@
+version 5.203.2
 framework: auto-detect
 
 source https://api.nuget.org/v3/index.json
@@ -8,8 +9,9 @@ nuget FluentAssertions !~> 5.1 >= 5.1.2
 nuget OneOf !~> 2.1 >= 2.1.127
 nuget OneOf.Extended !~> 2.1 >= 2.1.127
 nuget Resultful !~> 0.1 >= 0.1.2 prerelease
+nuget Optional prelease
 
-// Testing
+//Testing
 nuget Microsoft.NET.Test.Sdk
 nuget NUnit
 nuget NUnit3TestAdapter

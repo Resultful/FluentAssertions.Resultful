@@ -12,7 +12,6 @@
     </Description>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentAssertions.Union\FluentAssertions.Union.csproj" />
     <ProjectReference Include="..\FluentAssertions.OneOf\FluentAssertions.OneOf.csproj" />
   </ItemGroup>
   <Import Project="..\..\.paket\Paket.Restore.targets" />

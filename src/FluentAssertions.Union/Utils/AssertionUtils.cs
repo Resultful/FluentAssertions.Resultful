@@ -28,17 +28,21 @@ namespace FluentAssertions.Union.Utils
         {
             var result = value.GetUnionResult<TResult>(items => AssertNoMethod<TResult>(scope, value.Type, items));
 
-            var assertedResult = CheckItemHelper<TResult>(scope, result.TypeValuePair, result.MethodInfo.CaseTypes);
+            var assertedResult = CheckItemHelper<TResult>(scope, result.TypeValuePair, result.MethodInfo);
 
             return assertedResult;
         }
 
         internal static TResult CheckItemHelper<TResult>(AssertionScope scope, TypeValuePair typeValuePair,
-            params Type[] givenTypes)
-        {
+            UnionMethodInfo methodInfo)
+        { 
             var itemType = typeValuePair.Type;
             var expectedType = typeof(TResult);
             var expectedTypePretty = expectedType.PrettyPrint();
+
+            var givenTypes = methodInfo.OptionalLast
+                ? methodInfo.CaseTypes.Concat(new[] {typeof(None)}).ToArray()
+                : methodInfo.CaseTypes;
             var givenTypesPretty = string.Join(", ", givenTypes.Select(ReflectionUtils.PrettyPrint));
 
             scope
@@ -53,9 +57,6 @@ namespace FluentAssertions.Union.Utils
 
             return (TResult)typeValuePair.Value;
         }
-
-        internal static TResult CheckItemHelper<TItem, TResult>(AssertionScope scope, TItem element, params Type[] givenTypes)
-            => CheckItemHelper<TResult>(scope, element.Create(), givenTypes);
 
         internal static void BeEquivalentTo<TExpectation, TSubject>(TSubject subject, TExpectation expectation, string because = "",
             params object[] becauseArgs)

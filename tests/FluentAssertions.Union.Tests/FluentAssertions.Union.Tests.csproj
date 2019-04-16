@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <!-- Avoiding Package Detection Downgrades -->
     <NoWarn>$(NoWarn);NU1605</NoWarn>
+    <IsTestProject>true</IsTestProject>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\src\FluentAssertions.Union\FluentAssertions.Union.csproj" />

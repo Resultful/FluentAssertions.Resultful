@@ -1,11 +1,18 @@
 language: csharp
-mono: latest
-dotnet: 2.1.3
+dotnet: 2.1.502
+mono: none
+os: linux
+dist: xenial
 sudo: enabled
 before_install:
   - chmod +x build.sh
 script:
-  - ./build.sh
+  - "./build.sh"
 env:
-  global:
-    secure: AOjCOHAA4b3/cusT68U5vAPydfCP/aboUnSENOEazXGzfE/pQtF4kX6VsYgB9U5+K3j+Y63KshHbHPSFURtWQEvbOZYwobc9vTMAHnO4p03du79WgLQBHi9pNjCRMDRc6U+t8Jyoq6RCch133jSRhmkhmxY+UT96/WnZmJpiE+eSfqG+Q0eJxM8zNjxhuuwSZLyfPT3Ls2Ss5GnaZg0XnftCgQ6sQ7YpOqHmelOMTJ8iZn7SC1U2+wyaWsi2xWXnYya9lQDRR4e5kKzQah7VPcNwUABpI8lhBrgQlG2QGp9DUPlukO9KOm0GCkxWX8cdQmFjbCAXsjolAt79qAL4QDWZgeRC3mnQ/AU3bKBNctHSOEr4CNidq/m2P/dCck28CxAJZ/PmoT5HUHygpyvMQ80KM2On/5PAS3x8PZAw6h5nCu44ABcXXo0i1HkwvLa9P3sWgH9zjQgZH+R9FoMiyo01vrQkqLa5mquA8RaDWsk6JOgrDo1gzw74EJuliUZwQeRKd4hi6waYu0j4gFG7jsypKD6iAQ+qXOkmWKXFVseADqGiQ+Kh9CK0y3QqlUvEkhxr9TWYWb/RBwFqb6tJe/O8Dkn3oOc/IsEstAOqfBbk4A3z1jYIDAkFJkEg/U0L+fUIEX4bEnhnj4VvWxuEKF5ptoyaWZpAzhXT5uqyoRo=
+  - RESULTFUL_PACKAGE_VERSION: 0.0.1-beta01
+  - UNION_PACKAGE_VERSION: 0.0.1-beta01
+  - ONE_OF_PACKAGE_VERSION: 0.0.1-beta01
+branches:
+  only:
+    - master
+    - develop

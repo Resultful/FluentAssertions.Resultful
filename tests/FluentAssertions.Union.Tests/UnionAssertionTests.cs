@@ -13,7 +13,7 @@ namespace FluentAssertions.Union.Tests
         [Test]
         public void GetByteWhenItIsHttpStatusCode()
         {
-            Action action = () => _testCase.Should().BeCase<byte>();
+            Action action = () => _testCase.ShouldBeCase<byte>();
 
             action.Should().Throw<AssertionException>()
                 .WithMessage("Value should be assignable to \"Byte\" but found \"HttpStatusCode\" instead");
@@ -23,7 +23,7 @@ namespace FluentAssertions.Union.Tests
         [Test]
         public void GetStringWhenItIsAnythingBut()
         {
-            Action action = () => _testCase.Should().BeCase<string>();
+            Action action = () => _testCase.ShouldBeCase<string>();
 
             action.Should().Throw<AssertionException>()
                 .WithMessage("Value should be assignable to \"String\" but found \"Int32\" instead");
@@ -33,8 +33,7 @@ namespace FluentAssertions.Union.Tests
         public void GetHttpStatusCode()
         {
             _testCase
-                .Should()
-                .BeCase<HttpStatusCode>()
+                .ShouldBeCase<HttpStatusCode>()
                 .And
                 .Should()
                 .Be(HttpStatusCode.Conflict);
@@ -44,7 +43,7 @@ namespace FluentAssertions.Union.Tests
         [Test]
         public void GetUnkownType()
         {
-            Action action = () => _testCase.Should().BeCase<decimal>();
+            Action action = () => _testCase.ShouldBeCase<decimal>();
 
             action.Should().Throw<AssertionException>()
                 .WithMessage("Unable to find any Discriminated Union method on type \"SwitchableType\" for expected type \"Decimal\"");

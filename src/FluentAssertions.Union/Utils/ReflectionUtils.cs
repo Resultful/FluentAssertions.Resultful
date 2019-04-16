@@ -71,7 +71,7 @@ namespace FluentAssertions.Union.Utils
                 => new TypeValuePair(typeof(TValue), value);
 
             TypeValuePair GetMatchOptional()
-                => throw new Exception("Optional parameter cannot resolve a value");
+                => new TypeValuePair(typeof(None), None.Value);
 
             var mainArgs = unionMethodData.CaseTypes.Select(x => MethodUtils.MakeMatchArg(GetMatch, x));
 
@@ -87,7 +87,8 @@ namespace FluentAssertions.Union.Utils
 
         internal static UnionMethodInfo GetAppropriateMethod(this Type type, Type expectedType, out List<UnionMethodInfo> possibilities)
             => GetAppropriateMethod(type, out possibilities,
-                    x => x.CaseTypes.Any(y => y.IsAssignableFrom(expectedType)));
+                    x => x.CaseTypes.Any(y => y.IsAssignableFrom(expectedType) ||
+                                              (x.OptionalLast && expectedType == typeof(None))));
 
 
         internal static UnionMethodInfo GetAppropriateMethod(this Type type, out List<UnionMethodInfo> possibilities, Func<UnionMethodInfo, bool> filter)
@@ -185,8 +186,7 @@ namespace FluentAssertions.Union.Utils
                     var itemsToGet = optional ? parametersLegth - 1 : parametersLegth;
                     var types = paramters
                         .TakeWhile((_, index) => index < itemsToGet)
-                        .Select(x => x.ParameterType.GenericTypeArguments[0])
-                        .ToArray();
+                        .Select(x => x.ParameterType.GenericTypeArguments[0]).ToArray();
                     return new UnionMethodInfo(types, methodInfo, optional, isSwitch);
                 }
             }

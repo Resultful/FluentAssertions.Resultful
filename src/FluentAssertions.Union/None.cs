@@ -1,4 +1,4 @@
-﻿namespace FluentAssertions.Union
+namespace FluentAssertions.Union
 {
     public class None
     {
@@ -7,6 +7,6 @@
             
         }
 
-        public static None Value = new None();
+        public static None Value { get; } = new None();
     }
 }

@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="FluentAssertions" Version="7.2.0" />
+    <PackageVersion Include="OneOf" Version="3.0.271" />
+    <PackageVersion Include="OneOf.Extended" Version="3.0.271" />
+    <PackageVersion Include="Optional" Version="4.0.0" />
+    <PackageVersion Include="Resultful" Version="0.2.0-beta05" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="NUnit" Version="4.3.2" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
+    <PackageVersion Include="NunitXml.TestLogger" Version="5.0.0" />
+  </ItemGroup>
+</Project>

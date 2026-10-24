@@ -1,19 +1,19 @@
-﻿using System;
+using System;
 
 namespace FluentAssertions.Union.Models
 {
     public class TypeValuePair
     {
-        internal TypeValuePair(Type type, object value)
+        internal TypeValuePair(Type type, object? value)
         {
             Type = type;
             Value = value;
         }
 
         public Type Type { get; }
-        public object Value { get; }
+        public object? Value { get; }
 
-        public void Deconstruct(out Type type, out object value)
+        public void Deconstruct(out Type type, out object? value)
         {
             type = Type;
             value = Value;
@@ -26,6 +26,12 @@ namespace FluentAssertions.Union.Models
             => new TypeValuePair(typeof(T), value);
 
         public static TypeValuePair CreateFromObject(this object item)
-            => new TypeValuePair(item.GetType(), item);
+        {
+            if (item == null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+            return new TypeValuePair(item.GetType(), item);
+        }
     }
 }

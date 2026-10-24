@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using Resultful;
@@ -7,7 +7,7 @@ namespace FluentAssertions.Resultful
 {
     public class ResultAssertions<T, TError>
     {
-        public Result<T, TError> Subject;
+        public Result<T, TError> Subject { get; }
 
         public ResultAssertions(Result<T, TError> subject)
         {
@@ -18,7 +18,7 @@ namespace FluentAssertions.Resultful
 
     public class ResultAssertions<T>
     {
-        public Result<T> Subject;
+        public Result<T> Subject { get; }
 
         public ResultAssertions(Result<T> subject)
         {
@@ -28,7 +28,7 @@ namespace FluentAssertions.Resultful
 
     public class VoidResultAssertions<TError>
     {
-        public VoidResult<TError> Subject;
+        public VoidResult<TError> Subject { get; }
 
         public VoidResultAssertions(VoidResult<TError> subject)
         {
@@ -38,7 +38,7 @@ namespace FluentAssertions.Resultful
 
     public class VoidResultAssertions
     {
-        public VoidResult Subject;
+        public VoidResult Subject { get; }
 
         public VoidResultAssertions(VoidResult subject)
         {

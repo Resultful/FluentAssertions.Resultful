@@ -285,3 +285,15 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+
+# Local workspace conventions
+/temp/
+TODO.md
+todo.md
+
+# MSBuild binary logs
+*.binlog
+
+# NuGet packages
+nupkg/
+*.nupkg

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Net;
 using FluentAssertions.Extensions;
@@ -29,7 +29,7 @@ namespace FluentAssertions.Union.Tests
                         },
                         IsSwitch = true,
                         Method = typeof(SwitchableType).GetMethods()
-                            .FirstOrDefault(x => x.Name == "Switch" && x.GetParameters().Length == 4),
+                            .FirstOrDefault(x => x.Name == "Switch" && x.GetParameters().Length == 4)!,
                         OptionalLast = true
                     }.Create());
         }
@@ -50,7 +50,7 @@ namespace FluentAssertions.Union.Tests
                     },
                     IsSwitch = false,
                     Method = typeof(SwitchableType).GetMethods()
-                        .FirstOrDefault(x => x.Name == "Match" && x.GetParameters().Length == 2),
+                        .FirstOrDefault(x => x.Name == "Match" && x.GetParameters().Length == 2)!,
                     OptionalLast = false
                 }.Create());
         }
@@ -63,34 +63,34 @@ namespace FluentAssertions.Union.Tests
             results
                 .Should()
                 .BeEquivalentTo(
-                    new MethodResultBuilder
+                    new[]
                     {
-                        CaseTypes = new[]
+                        new MethodResultBuilder
                         {
-                            typeof(string),
-                            typeof(int)
-                        },
-                        IsSwitch = false,
-                        Method = typeof(SwitchableType).GetMethods()
-                            .FirstOrDefault(x => x.Name == "Match" && x.GetParameters().Length == 2),
-                        OptionalLast = false
-                    }.Create(),
-                    new MethodResultBuilder
-                    {
-                        CaseTypes = new[]
+                            CaseTypes = new[]
+                            {
+                                typeof(string),
+                                typeof(int)
+                            },
+                            IsSwitch = false,
+                            Method = typeof(SwitchableType).GetMethods()
+                                .FirstOrDefault(x => x.Name == "Match" && x.GetParameters().Length == 2)!,
+                            OptionalLast = false
+                        }.Create(),
+                        new MethodResultBuilder
                         {
-                            typeof(string),
-                            typeof(TimeSpan)
-                        },
-                        IsSwitch = false,
-                        Method = typeof(SwitchableType).GetMethods()
-                            .FirstOrDefault(x => x.Name == "Match" && x.GetParameters().Length == 3),
-                        OptionalLast = true
-                    }.Create());
+                            CaseTypes = new[]
+                            {
+                                typeof(string),
+                                typeof(TimeSpan)
+                            },
+                            IsSwitch = false,
+                            Method = typeof(SwitchableType).GetMethods()
+                                .FirstOrDefault(x => x.Name == "Match" && x.GetParameters().Length == 3)!,
+                            OptionalLast = true
+                        }.Create()
+                    });
         }
-
-
-        
 
         [Test]
         public void IsSwitchableType()
@@ -100,31 +100,34 @@ namespace FluentAssertions.Union.Tests
             result
                 .Should()
                 .BeEquivalentTo(
-                    new MethodResultBuilder
+                    new[]
                     {
-                        CaseTypes = new[]
+                        new MethodResultBuilder
                         {
-                            typeof(HttpStatusCode),
-                            typeof(Byte)
-                        },
-                        IsSwitch = true,
-                        Method = typeof(SwitchableType).GetMethods()
-                            .FirstOrDefault(x => x.Name == "Switch" && x.GetParameters().Length == 2),
-                        OptionalLast = false
-                    }.Create(),
-                    new MethodResultBuilder
-                    {
-                        CaseTypes = new[]
+                            CaseTypes = new[]
+                            {
+                                typeof(HttpStatusCode),
+                                typeof(Byte)
+                            },
+                            IsSwitch = true,
+                            Method = typeof(SwitchableType).GetMethods()
+                                .FirstOrDefault(x => x.Name == "Switch" && x.GetParameters().Length == 2)!,
+                            OptionalLast = false
+                        }.Create(),
+                        new MethodResultBuilder
                         {
-                            typeof(DateTime),
-                            typeof(string),
-                            typeof(long)
-                        },
-                        IsSwitch = true,
-                        Method = typeof(SwitchableType).GetMethods()
-                            .FirstOrDefault(x => x.Name == "Switch" && x.GetParameters().Length == 4),
-                        OptionalLast = true
-                    }.Create());
+                            CaseTypes = new[]
+                            {
+                                typeof(DateTime),
+                                typeof(string),
+                                typeof(long)
+                            },
+                            IsSwitch = true,
+                            Method = typeof(SwitchableType).GetMethods()
+                                .FirstOrDefault(x => x.Name == "Switch" && x.GetParameters().Length == 4)!,
+                            OptionalLast = true
+                        }.Create()
+                    });
         }
     }
 }

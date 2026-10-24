@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -32,13 +32,13 @@ namespace FluentAssertions.Union.Utils
             var resultType = typeof(TResult);
             var methodInfo = item.Type.GetAppropriateMethod(resultType, out var possibilities);
 
-            if(methodInfo == null)
+            if (methodInfo == null)
             {
                 failedToFind(possibilities);
             }
-            var result = item.Value.GetUnionResult(methodInfo);
+            var result = item.Value!.GetUnionResult(methodInfo!);
 
-            return new UnionResult(methodInfo, result);
+            return new UnionResult(methodInfo!, result);
         }
 
 
@@ -47,51 +47,51 @@ namespace FluentAssertions.Union.Utils
         {
             if (unionMethodData.IsSwitch)
             {
-                TypeValuePair closureResult  = null;
+                TypeValuePair? closureResult = null;
 
                 void GetSwitch<TValue>(TValue value)
-                    => closureResult = new TypeValuePair(typeof(TValue), value);
+                    => closureResult = new TypeValuePair(typeof(TValue), value!);
 
                 void GetSwitchOptional()
-                    => throw new Exception("Optional parameter cannot resolve a value");
+                    => throw new InvalidOperationException("Optional parameter cannot resolve a value");
 
-                var switchMainArgs = unionMethodData.CaseTypes.Select(x => MethodUtils.MakeAction(GetSwitch, x));
+                var switchMainArgs = unionMethodData.CaseTypes!.Select(x => MethodUtils.MakeAction(GetSwitch, x));
 
                 var switchFinalArgs = switchMainArgs.Concat(
                         unionMethodData.OptionalLast
                             ? new[] { MethodUtils.MakeAction(GetSwitchOptional) }
-                            : new object[0])
+                            : Array.Empty<object>())
                     .ToArray();
                  unionMethodData.Method.Invoke(item, switchFinalArgs);
 
-                return closureResult;
+                return closureResult!;
             }
 
             TypeValuePair GetMatch<TValue>(TValue value)
-                => new TypeValuePair(typeof(TValue), value);
+                => new TypeValuePair(typeof(TValue), value!);
 
             TypeValuePair GetMatchOptional()
                 => new TypeValuePair(typeof(None), None.Value);
 
-            var mainArgs = unionMethodData.CaseTypes.Select(x => MethodUtils.MakeMatchArg(GetMatch, x));
+            var mainArgs = unionMethodData.CaseTypes!.Select(x => MethodUtils.MakeMatchArg(GetMatch, x));
 
             var finalArgs = mainArgs.Concat(
                     unionMethodData.OptionalLast
                         ? new[] { MethodUtils.MakeFunc(GetMatchOptional) }
-                        : new object[0])
+                        : Array.Empty<object>())
                 .ToArray();
             return (TypeValuePair)unionMethodData.Method
                 .MakeGenericMethod(typeof(TypeValuePair))
-                .Invoke(item, finalArgs);
+                .Invoke(item, finalArgs)!;
         }
 
-        internal static UnionMethodInfo GetAppropriateMethod(this Type type, Type expectedType, out List<UnionMethodInfo> possibilities)
+        internal static UnionMethodInfo? GetAppropriateMethod(this Type type, Type expectedType, out List<UnionMethodInfo> possibilities)
             => GetAppropriateMethod(type, out possibilities,
-                    x => x.CaseTypes.Any(y => y.IsAssignableFrom(expectedType) ||
+                    x => x.CaseTypes != null && x.CaseTypes.Any(y => y.IsAssignableFrom(expectedType) ||
                                               (x.OptionalLast && expectedType == typeof(None))));
 
 
-        internal static UnionMethodInfo GetAppropriateMethod(this Type type, out List<UnionMethodInfo> possibilities, Func<UnionMethodInfo, bool> filter)
+        internal static UnionMethodInfo? GetAppropriateMethod(this Type type, out List<UnionMethodInfo> possibilities, Func<UnionMethodInfo, bool> filter)
         {
             possibilities = type
                 .GetMatchMethods()
@@ -106,11 +106,11 @@ namespace FluentAssertions.Union.Utils
         internal static string PrettyPrint(this Type type)
         {
             var genericArguments = type.GetGenericArguments();
-            if (!genericArguments.Any())
+            if (genericArguments.Length == 0)
             {
                 return type.Name;
             }
-            var genericName = type.Name.Substring(0, type.Name.IndexOf("`", StringComparison.Ordinal));
+            var genericName = type.Name.Substring(0, type.Name.IndexOf('`'));
             return $"{genericName}<{string.Join(",", genericArguments.Select(PrettyPrint))}>";
         }
 

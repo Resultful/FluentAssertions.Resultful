@@ -1,16 +1,16 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0</TargetFrameworks>
-    <AssemblyName>FluentAssertions.Resultful</AssemblyName>
-    <Authors>Ryan Kelly</Authors>
-    <RepositoryUrl>https://github.com/rtkelly13/FluentAssertions.OneOf</RepositoryUrl>
-    <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <Description></Description>
+    <TargetFrameworks>net10.0;netstandard2.0</TargetFrameworks>
+    <Description>Extension to FluentAssertions which improves the usage of Resultful to allow easier unit testing.</Description>
   </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\FluentAssertions.Union\FluentAssertions.Union.csproj" />
     <ProjectReference Include="..\FluentAssertions.OneOf\FluentAssertions.OneOf.csproj" />
   </ItemGroup>
-  <Import Project="..\..\.paket\Paket.Restore.targets" />
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="Resultful" />
+  </ItemGroup>
 </Project>

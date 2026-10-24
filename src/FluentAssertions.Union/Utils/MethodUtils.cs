@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -15,7 +15,7 @@ namespace FluentAssertions.Union.Utils
             var concreteMethod = genericMethod.MakeGenericMethod(type);
             var newType = typeof(Action<>).MakeGenericType(type);
 
-            var invoker = concreteMethod.GetType().GetMethods("Invoke").FirstOrDefault(x => x.GetParameters().Length == 2);
+            var invoker = concreteMethod.GetType().GetMethods("Invoke").FirstOrDefault(x => x.GetParameters().Length == 2)!;
 
             var parameterExpr = Expression.Parameter(type, "p");
             var constantExpr = Expression.Constant(concreteMethod, typeof(MethodInfo));
@@ -40,9 +40,9 @@ namespace FluentAssertions.Union.Utils
             var method = func.Method;
             var genericMethod = method.GetGenericMethodDefinition();
             var concreteMethod = genericMethod.MakeGenericMethod(type);
-            var newType = typeof(Func<,>).MakeGenericType(type,typeof(TypeValuePair));
+            var newType = typeof(Func<,>).MakeGenericType(type, typeof(TypeValuePair));
 
-            var invoker = concreteMethod.GetType().GetMethods("Invoke").FirstOrDefault(x => x.GetParameters().Length == 2);
+            var invoker = concreteMethod.GetType().GetMethods("Invoke").FirstOrDefault(x => x.GetParameters().Length == 2)!;
 
             var parameterExpr = Expression.Parameter(type, "p");
             var constantExpr = Expression.Constant(concreteMethod, typeof(MethodInfo));
@@ -62,7 +62,5 @@ namespace FluentAssertions.Union.Utils
         {
             return func;
         }
-
-
     }
 }

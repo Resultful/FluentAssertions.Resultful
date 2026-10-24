@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentAssertions.Equivalency;
 using FluentAssertions.Execution;
 using FluentAssertions.Union.Models;
 
@@ -11,9 +10,11 @@ namespace FluentAssertions.Union.Utils
     {
         internal static void AssertNoMethod<TResult>(AssertionScope scope, Type assertionType, List<UnionMethodInfo> otherPossibilities)
         {
-            if (otherPossibilities.Any())
+            if (otherPossibilities.Count > 0)
             {
-                string Print(UnionMethodInfo info) => string.Join(", ", info.CaseTypes.Select(ReflectionUtils.PrettyPrint));
+                string Print(UnionMethodInfo info) => info.CaseTypes != null
+                    ? string.Join(", ", info.CaseTypes.Select(ReflectionUtils.PrettyPrint))
+                    : "";
                 var prettyPrintedCases = string.Join(",", otherPossibilities.Select(x => $"{{{Print(x)}}}"));
 
                 scope.FailWith("Multiple Discriminated Union methods found {0}, method types listed {1} non match {2}",
@@ -40,9 +41,9 @@ namespace FluentAssertions.Union.Utils
             var expectedType = typeof(TResult);
             var expectedTypePretty = expectedType.PrettyPrint();
 
-            var givenTypes = methodInfo.OptionalLast
-                ? methodInfo.CaseTypes.Concat(new[] {typeof(None)}).ToArray()
-                : methodInfo.CaseTypes;
+            var givenTypes = (methodInfo.CaseTypes != null && methodInfo.OptionalLast)
+                ? methodInfo.CaseTypes.Concat(new[] { typeof(None) }).ToArray()
+                : (methodInfo.CaseTypes ?? Array.Empty<Type>());
             var givenTypesPretty = string.Join(", ", givenTypes.Select(ReflectionUtils.PrettyPrint));
 
             scope
@@ -55,31 +56,7 @@ namespace FluentAssertions.Union.Utils
                 .FailWith("Value should be assignable to {0} but found {1} instead",
                     expectedTypePretty, itemType.PrettyPrint());
 
-            return (TResult)typeValuePair.Value;
-        }
-
-        internal static void BeEquivalentTo<TExpectation, TSubject>(TSubject subject, TExpectation expectation, string because = "",
-            params object[] becauseArgs)
-        {
-            BeEquivalentTo(subject, expectation, config => config, because, becauseArgs);
-        }
-
-        internal static void BeEquivalentTo<TExpectation, TSubject>(TSubject subject, TExpectation expectation,
-            Func<EquivalencyAssertionOptions<TExpectation>, EquivalencyAssertionOptions<TExpectation>> config,
-            string because = "",
-            params object[] becauseArgs)
-        {
-            var options = config(AssertionOptions.CloneDefaults<TExpectation>());
-            var context = new EquivalencyValidationContext
-            {
-                Subject = subject,
-                Expectation = expectation,
-                CompileTimeType = typeof(TExpectation),
-                Because = because,
-                BecauseArgs = becauseArgs,
-                Tracer = options.TraceWriter
-            };
-            new EquivalencyValidator(options).AssertEquality(context);
+            return (TResult)typeValuePair.Value!;
         }
     }
 }

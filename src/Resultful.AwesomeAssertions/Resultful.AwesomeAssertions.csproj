@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;netstandard2.0</TargetFrameworks>
+    <Description>AwesomeAssertions for Resultful's Result, VoidResult and Option types.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Resultful.AwesomeAssertions.Union\Resultful.AwesomeAssertions.Union.csproj" />
+    <ProjectReference Include="..\Resultful.AwesomeAssertions.OneOf\Resultful.AwesomeAssertions.OneOf.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Resultful" />
+  </ItemGroup>
+</Project>

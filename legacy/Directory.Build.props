@@ -1,0 +1,12 @@
+<Project>
+  <!--
+    The legacy flavor: the same sources as src/ and tests/, built against FluentAssertions 7.x (Apache-2.0) and
+    published under the original FluentAssertions.* package IDs and namespaces, for projects not yet on
+    AwesomeAssertions. New features land in src/ and reach both flavors.
+  -->
+  <PropertyGroup>
+    <AssertionsFlavor>FluentAssertions</AssertionsFlavor>
+  </PropertyGroup>
+
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+</Project>

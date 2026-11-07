@@ -10,6 +10,32 @@
     <NoWarn>$(NoWarn);CA1716;CA1000;CA1510;NU5104</NoWarn>
   </PropertyGroup>
 
+  <!--
+    Every project builds against one assertion library, its flavor. AwesomeAssertions is the default; projects under
+    legacy/ set FluentAssertions before importing this file, and compile the same sources with FLUENTASSERTIONS defined.
+    The namespaces below are also the assembly and package names.
+  -->
+  <PropertyGroup>
+    <AssertionsFlavor Condition="'$(AssertionsFlavor)' == ''">AwesomeAssertions</AssertionsFlavor>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AssertionsFlavor)' == 'AwesomeAssertions'">
+    <UnionNamespace>Resultful.AwesomeAssertions.Union</UnionNamespace>
+    <OneOfNamespace>Resultful.AwesomeAssertions.OneOf</OneOfNamespace>
+    <OneOfExtendedNamespace>Resultful.AwesomeAssertions.OneOf.Extended</OneOfExtendedNamespace>
+    <ResultNamespace>Resultful.AwesomeAssertions</ResultNamespace>
+    <AssertionContextType>AwesomeAssertions.Execution.AssertionChain</AssertionContextType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(AssertionsFlavor)' == 'FluentAssertions'">
+    <DefineConstants>$(DefineConstants);FLUENTASSERTIONS</DefineConstants>
+    <UnionNamespace>FluentAssertions.Union</UnionNamespace>
+    <OneOfNamespace>FluentAssertions.OneOf</OneOfNamespace>
+    <OneOfExtendedNamespace>FluentAssertions.OneOf.Extended</OneOfExtendedNamespace>
+    <ResultNamespace>FluentAssertions.Resultful</ResultNamespace>
+    <AssertionContextType>FluentAssertions.Execution.AssertionScope</AssertionContextType>
+  </PropertyGroup>
+
   <PropertyGroup>
     <Authors>Ryan Kelly</Authors>
     <PackageProjectUrl>https://github.com/Resultful/FluentAssertions.Resultful</PackageProjectUrl>

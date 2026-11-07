@@ -1,0 +1,31 @@
+<Project>
+  <!-- The assertion library for this project's flavor (see Directory.Build.props). -->
+  <ItemGroup>
+    <PackageReference Include="$(AssertionsFlavor)" />
+    <Using Include="$(AssertionsFlavor)" />
+    <Using Include="$(AssertionsFlavor).Execution" />
+  </ItemGroup>
+
+  <!--
+    Library code names the flavor's assertion entry point through this alias: AssertionChain in AwesomeAssertions,
+    AssertionScope in FluentAssertions 7. Both have BecauseOf, ForCondition and FailWith.
+  -->
+  <ItemGroup Condition="'$(IsTestProject)' != 'true'">
+    <Using Include="$(AssertionContextType)" Alias="AssertionContext" />
+  </ItemGroup>
+
+  <!-- A legacy project names the primary project whose sources it compiles (SharedSource) instead of owning any. -->
+  <ItemGroup Condition="'$(SharedSource)' != ''">
+    <Compile Include="$(SharedSource)/**/*.cs" Exclude="$(SharedSource)/bin/**;$(SharedSource)/obj/**" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(AssemblyName)' == '$(UnionNamespace)'">
+    <InternalsVisibleTo Include="$(OneOfNamespace)" />
+    <InternalsVisibleTo Include="$(OneOfExtendedNamespace)" />
+    <InternalsVisibleTo Include="$(UnionNamespace).Tests" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(AssemblyName)' == '$(OneOfNamespace)'">
+    <InternalsVisibleTo Include="$(OneOfNamespace).Tests" />
+  </ItemGroup>
+</Project>

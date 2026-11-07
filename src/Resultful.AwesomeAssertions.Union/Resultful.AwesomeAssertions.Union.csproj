@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;netstandard2.0</TargetFrameworks>
+    <Description>AwesomeAssertions for discriminated unions: assert which case an object holds, found through its Match/Switch methods. The base for the OneOf and Resultful assertions.</Description>
+  </PropertyGroup>
+</Project>

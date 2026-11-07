@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Legacy flavor: compiles src/Resultful.AwesomeAssertions against FluentAssertions 7.x. Add nothing here; change the shared sources. -->
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;netstandard2.0</TargetFrameworks>
+    <Description>FluentAssertions 7.x build of Resultful.AwesomeAssertions: assertions for Resultful types. New projects should use Resultful.AwesomeAssertions with AwesomeAssertions.</Description>
+    <SharedSource>$(MSBuildThisFileDirectory)../../../src/Resultful.AwesomeAssertions</SharedSource>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentAssertions.Union\FluentAssertions.Union.csproj" />
+    <ProjectReference Include="..\FluentAssertions.OneOf\FluentAssertions.OneOf.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Resultful" />
+  </ItemGroup>
+</Project>

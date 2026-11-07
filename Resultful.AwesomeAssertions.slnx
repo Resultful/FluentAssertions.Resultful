@@ -1,0 +1,24 @@
+<Solution>
+  <Folder Name="/legacy/">
+    <Project Path="legacy/src/FluentAssertions.OneOf.Extended/FluentAssertions.OneOf.Extended.csproj" />
+    <Project Path="legacy/src/FluentAssertions.OneOf/FluentAssertions.OneOf.csproj" />
+    <Project Path="legacy/src/FluentAssertions.Resultful/FluentAssertions.Resultful.csproj" />
+    <Project Path="legacy/src/FluentAssertions.Union/FluentAssertions.Union.csproj" />
+    <Project Path="legacy/tests/FluentAssertions.OneOf.Tests/FluentAssertions.OneOf.Tests.csproj" />
+    <Project Path="legacy/tests/FluentAssertions.Optional.Tests/FluentAssertions.Optional.Tests.csproj" />
+    <Project Path="legacy/tests/FluentAssertions.Resultful.Tests/FluentAssertions.Resultful.Tests.csproj" />
+    <Project Path="legacy/tests/FluentAssertions.Union.Tests/FluentAssertions.Union.Tests.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Resultful.AwesomeAssertions.OneOf.Extended/Resultful.AwesomeAssertions.OneOf.Extended.csproj" />
+    <Project Path="src/Resultful.AwesomeAssertions.OneOf/Resultful.AwesomeAssertions.OneOf.csproj" />
+    <Project Path="src/Resultful.AwesomeAssertions.Union/Resultful.AwesomeAssertions.Union.csproj" />
+    <Project Path="src/Resultful.AwesomeAssertions/Resultful.AwesomeAssertions.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Resultful.AwesomeAssertions.OneOf.Tests/Resultful.AwesomeAssertions.OneOf.Tests.csproj" />
+    <Project Path="tests/Resultful.AwesomeAssertions.Optional.Tests/Resultful.AwesomeAssertions.Optional.Tests.csproj" />
+    <Project Path="tests/Resultful.AwesomeAssertions.Tests/Resultful.AwesomeAssertions.Tests.csproj" />
+    <Project Path="tests/Resultful.AwesomeAssertions.Union.Tests/Resultful.AwesomeAssertions.Union.Tests.csproj" />
+  </Folder>
+</Solution>

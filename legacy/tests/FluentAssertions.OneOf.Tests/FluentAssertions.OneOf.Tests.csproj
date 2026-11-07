@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Legacy flavor: compiles tests/Resultful.AwesomeAssertions.OneOf.Tests against FluentAssertions 7.x. Add nothing here; change the shared sources. -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+    <SharedSource>$(MSBuildThisFileDirectory)../../../tests/Resultful.AwesomeAssertions.OneOf.Tests</SharedSource>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FluentAssertions.OneOf\FluentAssertions.OneOf.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="NunitXml.TestLogger" />
+    <PackageReference Include="OneOf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="$(AssertionsFlavor).Extensions" />
+    <Using Include="$(OneOfNamespace)" />
+  </ItemGroup>
+</Project>

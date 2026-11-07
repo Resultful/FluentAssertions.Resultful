@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;netstandard2.0</TargetFrameworks>
+    <Description>AwesomeAssertions for OneOf.Extended (9-32 cases): assert which case a OneOf holds and continue on its value.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Resultful.AwesomeAssertions.OneOf\Resultful.AwesomeAssertions.OneOf.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OneOf.Extended" />
+  </ItemGroup>
+</Project>

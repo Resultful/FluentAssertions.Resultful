@@ -29,17 +29,20 @@ jobs:
           dotnet-version: '10.0.x'
 
       - name: Restore dependencies
-        run: dotnet restore FluentAssertions.Resultful.sln
+        run: dotnet restore Resultful.AwesomeAssertions.slnx
+
+      - name: Check generated OneOf files match their generator
+        run: dotnet run eng/GenerateOneOf.cs -- --check
 
       - name: Build solution
-        run: dotnet build FluentAssertions.Resultful.sln --configuration Release --no-restore
+        run: dotnet build Resultful.AwesomeAssertions.slnx --configuration Release --no-restore
 
       - name: Run tests
-        run: dotnet test FluentAssertions.Resultful.sln --configuration Release --no-build --verbosity normal
+        run: dotnet test Resultful.AwesomeAssertions.slnx --configuration Release --no-build --verbosity normal
 
       - name: Pack NuGet packages
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: dotnet pack FluentAssertions.Resultful.sln --configuration Release --no-build -o nupkg
+        run: dotnet pack Resultful.AwesomeAssertions.slnx --configuration Release --no-build -o nupkg
 
       - name: Publish to NuGet
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && env.NUGET_AUTH_TOKEN != ''

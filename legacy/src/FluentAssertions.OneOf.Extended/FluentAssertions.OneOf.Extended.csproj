@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Legacy flavor: compiles src/Resultful.AwesomeAssertions.OneOf.Extended against FluentAssertions 7.x. Add nothing here; change the shared sources. -->
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;netstandard2.0</TargetFrameworks>
+    <Description>FluentAssertions 7.x build of Resultful.AwesomeAssertions.OneOf.Extended: assert which case a OneOf (9-32 cases) holds. New projects should use Resultful.AwesomeAssertions.OneOf.Extended with AwesomeAssertions.</Description>
+    <SharedSource>$(MSBuildThisFileDirectory)../../../src/Resultful.AwesomeAssertions.OneOf.Extended</SharedSource>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluentAssertions.OneOf\FluentAssertions.OneOf.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="OneOf.Extended" />
+  </ItemGroup>
+</Project>

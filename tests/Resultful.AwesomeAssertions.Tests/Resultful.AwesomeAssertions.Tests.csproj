@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Resultful.AwesomeAssertions\Resultful.AwesomeAssertions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="NUnit" />
+    <PackageReference Include="NUnit3TestAdapter" />
+    <PackageReference Include="NunitXml.TestLogger" />
+    <PackageReference Include="Resultful" />
+  </ItemGroup>
+
+  <!-- The sources are flavor-neutral; the library's namespaces for this flavor come in here. -->
+  <ItemGroup>
+    <Using Include="$(AssertionsFlavor).Extensions" />
+    <Using Include="$(ResultNamespace)" />
+  </ItemGroup>
+</Project>

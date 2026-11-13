@@ -62,7 +62,7 @@ namespace FluentAssertions.Union.Utils
                             ? new[] { MethodUtils.MakeAction(GetSwitchOptional) }
                             : Array.Empty<object>())
                     .ToArray();
-                 unionMethodData.Method.Invoke(item, switchFinalArgs);
+                unionMethodData.Method.Invoke(item, switchFinalArgs);
 
                 return closureResult!;
             }

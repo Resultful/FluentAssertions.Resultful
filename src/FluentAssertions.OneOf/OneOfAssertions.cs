@@ -30,7 +30,7 @@ namespace FluentAssertions.OneOf
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -62,7 +62,7 @@ namespace FluentAssertions.OneOf
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -94,7 +94,7 @@ namespace FluentAssertions.OneOf
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -126,7 +126,7 @@ namespace FluentAssertions.OneOf
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -158,7 +158,7 @@ namespace FluentAssertions.OneOf
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -190,7 +190,7 @@ namespace FluentAssertions.OneOf
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -222,7 +222,7 @@ namespace FluentAssertions.OneOf
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -254,7 +254,7 @@ namespace FluentAssertions.OneOf
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }

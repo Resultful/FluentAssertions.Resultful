@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FluentAssertions.Union.Models;
 using FluentAssertions.Union.Utils;
 using NUnit.Framework;

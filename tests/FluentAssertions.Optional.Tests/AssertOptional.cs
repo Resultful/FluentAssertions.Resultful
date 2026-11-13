@@ -11,7 +11,7 @@ namespace FluentAssertions.Optional.Tests
         public void AssertOption_Option_SomeFound()
         {
             //Arrange
-            var itemToCheck = Option.Some( 3);
+            var itemToCheck = Option.Some(3);
 
             //Assert
             itemToCheck

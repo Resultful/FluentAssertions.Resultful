@@ -29,7 +29,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -61,7 +61,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -80,7 +80,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10> Subject { get; }
+            T10> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -96,7 +97,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -115,7 +116,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11> Subject { get; }
+            T10, T11> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -131,7 +133,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -150,7 +152,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11, T12> Subject { get; }
+            T10, T11, T12> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -166,7 +169,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -185,7 +188,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11, T12, T13> Subject { get; }
+            T10, T11, T12, T13> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -201,7 +205,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -220,7 +224,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11, T12, T13, T14> Subject { get; }
+            T10, T11, T12, T13, T14> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -236,7 +241,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -255,7 +260,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11, T12, T13, T14, T15> Subject { get; }
+            T10, T11, T12, T13, T14, T15> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -271,7 +277,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -290,7 +296,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11, T12, T13, T14, T15, T16> Subject { get; }
+            T10, T11, T12, T13, T14, T15, T16> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -306,7 +313,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -325,7 +332,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11, T12, T13, T14, T15, T16, T17> Subject { get; }
+            T10, T11, T12, T13, T14, T15, T16, T17> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -341,7 +349,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -360,7 +368,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11, T12, T13, T14, T15, T16, T17, T18> Subject { get; }
+            T10, T11, T12, T13, T14, T15, T16, T17, T18> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -376,7 +385,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -395,7 +404,8 @@ namespace FluentAssertions.OneOf.Extended
         }
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
-            T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> Subject { get; }
+            T10, T11, T12, T13, T14, T15, T16, T17, T18, T19> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -411,7 +421,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -433,7 +443,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20> Subject { get; }
+            T20> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -449,7 +460,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -471,7 +482,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21> Subject { get; }
+            T20, T21> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -487,7 +499,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -509,7 +521,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21, T22> Subject { get; }
+            T20, T21, T22> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -525,7 +538,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -547,7 +560,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21, T22, T23> Subject { get; }
+            T20, T21, T22, T23> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -563,7 +577,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -585,7 +599,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21, T22, T23, T24> Subject { get; }
+            T20, T21, T22, T23, T24> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -601,7 +616,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -623,7 +638,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21, T22, T23, T24, T25> Subject { get; }
+            T20, T21, T22, T23, T24, T25> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -639,7 +655,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -661,7 +677,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21, T22, T23, T24, T25, T26> Subject { get; }
+            T20, T21, T22, T23, T24, T25, T26> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -677,7 +694,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -699,7 +716,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21, T22, T23, T24, T25, T26, T27> Subject { get; }
+            T20, T21, T22, T23, T24, T25, T26, T27> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -715,7 +733,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -737,7 +755,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21, T22, T23, T24, T25, T26, T27, T28> Subject { get; }
+            T20, T21, T22, T23, T24, T25, T26, T27, T28> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -753,7 +772,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -775,7 +794,8 @@ namespace FluentAssertions.OneOf.Extended
 
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
-            T20, T21, T22, T23, T24, T25, T26, T27, T28, T29> Subject { get; }
+            T20, T21, T22, T23, T24, T25, T26, T27, T28, T29> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -791,7 +811,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -816,7 +836,8 @@ namespace FluentAssertions.OneOf.Extended
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
             T20, T21, T22, T23, T24, T25, T26, T27, T28, T29,
-            T30> Subject { get; }
+            T30> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -832,7 +853,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }
@@ -857,7 +878,8 @@ namespace FluentAssertions.OneOf.Extended
         public OneOf<T0, T1, T2, T3, T4, T5, T6, T7, T8, T9,
             T10, T11, T12, T13, T14, T15, T16, T17, T18, T19,
             T20, T21, T22, T23, T24, T25, T26, T27, T28, T29,
-            T30, T31> Subject { get; }
+            T30, T31> Subject
+        { get; }
 
         public AndConstraint<TResult> BeCase<TResult>(
             string because = "", params object[] becauseArgs)
@@ -873,7 +895,7 @@ namespace FluentAssertions.OneOf.Extended
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {
-            if(assertionFunc == null)
+            if (assertionFunc == null)
             {
                 throw new ArgumentNullException(nameof(assertionFunc));
             }

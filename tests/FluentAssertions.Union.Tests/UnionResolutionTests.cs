@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Net;
 using FluentAssertions.Extensions;
 using FluentAssertions.Union.Models;
@@ -15,7 +15,7 @@ namespace FluentAssertions.Union.Tests
         [Test]
         public void GetFirstDateTime()
         {
-            var (result, _) = _testCase.Create().GetUnionResult<DateTime>(possibilities => {});
+            var (result, _) = _testCase.Create().GetUnionResult<DateTime>(possibilities => { });
 
             result
                 .Value

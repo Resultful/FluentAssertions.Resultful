@@ -20,18 +20,18 @@ namespace FluentAssertions.Union.Tests
             result
                 .Should()
                 .BeEquivalentTo(new MethodResultBuilder
-                    {
-                        CaseTypes = new[]
+                {
+                    CaseTypes = new[]
                         {
                             typeof(DateTime),
                             typeof(string),
                             typeof(long)
                         },
-                        IsSwitch = true,
-                        Method = typeof(SwitchableType).GetMethods()
+                    IsSwitch = true,
+                    Method = typeof(SwitchableType).GetMethods()
                             .FirstOrDefault(x => x.Name == "Switch" && x.GetParameters().Length == 4)!,
-                        OptionalLast = true
-                    }.Create());
+                    OptionalLast = true
+                }.Create());
         }
 
         [Test]

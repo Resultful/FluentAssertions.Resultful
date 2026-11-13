@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FluentAssertions.Execution;
 using FluentAssertions.Numeric;
 using FluentAssertions.Primitives;
@@ -22,7 +22,7 @@ namespace FluentAssertions.Union
             return new AndConstraint<TResult>(assertedResult);
         }
 
-        public static AndConstraint<TResultConstraint> ShouldBeCase<TResult, TResultConstraint>(this object item, 
+        public static AndConstraint<TResultConstraint> ShouldBeCase<TResult, TResultConstraint>(this object item,
             Func<TResult, TResultConstraint> assertionFunc,
             string because = "", params object[] becauseArgs)
         {

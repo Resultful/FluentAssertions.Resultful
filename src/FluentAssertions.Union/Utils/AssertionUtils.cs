@@ -36,7 +36,7 @@ namespace FluentAssertions.Union.Utils
 
         internal static TResult CheckItemHelper<TResult>(AssertionScope scope, TypeValuePair typeValuePair,
             UnionMethodInfo methodInfo)
-        { 
+        {
             var itemType = typeValuePair.Type;
             var expectedType = typeof(TResult);
             var expectedTypePretty = expectedType.PrettyPrint();
